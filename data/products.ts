@@ -1,4 +1,3 @@
-
 import { Product } from '../types';
 
 export const PRODUCTS: Product[] = [
@@ -22,7 +21,7 @@ export const PRODUCTS: Product[] = [
   // --- GREETING CARDS - Sassier Names & Standardized Details ---
   {
     id: 101,
-    name: "The Cardiac Arrest",
+    name: "Happy New Year- Dark theme",
     category: "greeting-cards",
     price: 10.00,
     description: "You make my heart skip a beat. Literally. Please stop.",
@@ -35,67 +34,67 @@ export const PRODUCTS: Product[] = [
     name: "Main Squeeze",
     category: "greeting-cards",
     price: 10.00,
-    description: "You're simply the zest. No squeeze about it.",
+    description: "Wish your near and dear a happy 2026",
     image: "https://i.imgur.com/2J5EqGI.png",
     images: ["https://i.imgur.com/2J5EqGI.png", "https://i.imgur.com/WTOXmM4.png"],
     details: ["Premium 300gsm Cardstock", "A6 size"]
   },
   {
     id: 103,
-    name: "Future Cat Lady",
+    name: "You mmake me..",
     category: "greeting-cards",
     price: 10.00,
-    description: "Another year closer to becoming a crazy cat lady. Embrace it.",
+    description: "Speak through our cards",
     image: "https://i.imgur.com/prgHhPD.png",
     images: ["https://i.imgur.com/prgHhPD.png", "https://i.imgur.com/Tn2SDOM.png"],
     details: ["Premium 300gsm Cardstock", "A6 size"]
   },
   {
     id: 104,
-    name: "Spilling The Tea",
+    name: "Birthday cake",
     category: "greeting-cards",
     price: 10.00,
-    description: "You're tea-riffic. Steeped in greatness.",
+    description: "Send cake for their birthday, minus the calories.",
     image: "https://i.imgur.com/TPC3r3G.png",
     images: ["https://i.imgur.com/TPC3r3G.png", "https://i.imgur.com/hGUIXOK.png"],
     details: ["Premium 300gsm Cardstock", "A6 size"]
   },
   {
     id: 105,
-    name: "Face Obsessed",
+    name: "Watercolor birthday",
     category: "greeting-cards",
     price: 10.00,
-    description: "I like your face. It's a good one.",
+    description: "Happy birthday. Simple, cute. ",
     image: "https://i.imgur.com/NnkYW0m.png",
     images: ["https://i.imgur.com/NnkYW0m.png", "https://i.imgur.com/kbe2Auv.png"],
     details: ["Premium 300gsm Cardstock", "A6 size"]
   },
   {
     id: 106,
-    name: "Melon Millionaire",
+    name: "Birthday candles",
     category: "greeting-cards",
     price: 10.00,
-    description: "You're one in a melon. Truly seedless potential.",
+    description: "Wish them birthday with candles because they light up everywhere they go.",
     image: "https://i.imgur.com/CE6KrRo.png",
     images: ["https://i.imgur.com/CE6KrRo.png", "https://i.imgur.com/K1Bt8Yt.png"],
     details: ["Premium 300gsm Cardstock", "A6 size"]
   },
   {
     id: 107,
-    name: "Desert Attitude",
+    name: "Toasty",
     category: "greeting-cards",
     price: 10.00,
-    description: "Don't be a prick. Unless you're a cute cactus.",
+    description: "Give them a toast on their special day.",
     image: "https://i.imgur.com/x8YgfHi.png",
     images: ["https://i.imgur.com/x8YgfHi.png", "https://i.imgur.com/vTR0zaY.png"],
     details: ["Premium 300gsm Cardstock", "A6 size"]
   },
   {
     id: 108,
-    name: "Butter Together",
+    name: "Congratualations",
     category: "greeting-cards",
     price: 10.00,
-    description: "You're my butter half. We're on a roll.",
+    description: "Tell them they are doing great with the cards, because every milestone counts.",
     image: "https://i.imgur.com/MFElr3D.png",
     images: ["https://i.imgur.com/MFElr3D.png", "https://i.imgur.com/gLZscEA.png"],
     details: ["Premium 300gsm Cardstock", "A6 size"]
@@ -112,40 +111,40 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 110,
-    name: "Latte Attitude",
+    name: "Birthday Candles",
     category: "greeting-cards",
     price: 10.00,
-    description: "I love you a latte. Espresso-ly you.",
+    description: "Wish em happy birthday. ",
     image: "https://i.imgur.com/ZJS67QP.png",
     images: ["https://i.imgur.com/ZJS67QP.png", "https://i.imgur.com/NAjUrBy.png"],
     details: ["Premium 300gsm Cardstock", "A6 size"]
   },
   {
     id: 111,
-    name: "Good Egg Energy",
+    name: "Thank you ",
     category: "greeting-cards",
     price: 10.00,
-    description: "Have an egg-cellent day. Sunny side up only.",
+    description: "Thank you Cards because sometimes you need to put the gratitude on paper.",
     image: "https://i.imgur.com/G5iKUy6.png",
     images: ["https://i.imgur.com/G5iKUy6.png", "https://i.imgur.com/5dyVLvm.png"],
     details: ["Premium 300gsm Cardstock", "A6 size"]
   },
   {
     id: 112,
-    name: "Kitten Around",
+    name: "Enjoying Animals",
     category: "greeting-cards",
     price: 10.00,
-    description: "You're punderful. I'm not kitten around.",
+    description: "You're punderful. Send a fun birthday card to the funny ones!",
     image: "https://i.imgur.com/sdFGFI7.png",
     images: ["https://i.imgur.com/sdFGFI7.png", "https://i.imgur.com/2FR5Y8P.png"],
     details: ["Premium 300gsm Cardstock", "A6 size"]
   },
   {
     id: 113,
-    name: "Melon Grateful",
+    name: "2026 card",
     category: "greeting-cards",
     price: 10.00,
-    description: "Thanks a melon! You're the best of the patch.",
+    description: "Cheers to the new year together!. ",
     image: "https://i.imgur.com/0gkT9Dn.png",
     images: ["https://i.imgur.com/0gkT9Dn.png", "https://i.imgur.com/K1Bt8Yt.png"],
     details: ["Premium 300gsm Cardstock", "A6 size"]
@@ -269,10 +268,11 @@ export const PRODUCTS: Product[] = [
     subCategory: "pinned",
     price: 125.00,
     description: "Soft hues for your boldest ideas.",
-    image: "https://i.imgur.com/NxvLWK6.png",
+    image: "https://i.imgur.com/fn9A9MR.png",
     images: [
       "https://i.imgur.com/NxvLWK6.png",
-      "https://i.imgur.com/1LZg19l.png"
+      "https://i.imgur.com/1LZg19l.png",
+      "https://i.imgur.com/fn9A9MR.png"
     ],
     details: [
         "160 Pages",
@@ -311,10 +311,11 @@ export const PRODUCTS: Product[] = [
     subCategory: "pinned",
     price: 125.00,
     description: "Clean, crisp, and ready for your chaos.",
-    image: "https://i.imgur.com/y2Jnqd8.png",
+    image: "https://i.imgur.com/wdc3UbQ.png",
     images: [
       "https://i.imgur.com/y2Jnqd8.png",
-      "https://i.imgur.com/00YqPdF.png"
+      "https://i.imgur.com/00YqPdF.png",
+      "https://i.imgur.com/wdc3UbQ.png"
     ],
     details: [
         "160 Pages",
@@ -360,15 +361,14 @@ export const PRODUCTS: Product[] = [
     image: "https://i.imgur.com/WvDFpxK.png",
     images: [
         "https://i.imgur.com/WvDFpxK.png", // Front
-        "https://i.imgur.com/uuIwsBI.jpeg",  // Back
-        "https://i.imgur.com/BIVzwWl.png",   // Inside
+        "https://i.imgur.com/uuIwsBI.jpeg"  // Back
     ],
     details: [
         "160 Pages",
         "Dotted / Grid",
         "100gsm Premium Paper",
         "A5 Size (148 x 210 mm)",
-        "Gold Spiral Binding"
+        "Silver Spiral Binding"
     ],
     isNew: false
   },
@@ -380,12 +380,17 @@ export const PRODUCTS: Product[] = [
     price: 135.00,
     description: "Keep it cool, keep it spiral.",
     image: "https://i.imgur.com/Cb4mfrK.png",
+    images: [
+        "https://i.imgur.com/4FgS8mB.png", //inside
+        "https://i.imgur.com/jDdnvYc.png",
+        "https://i.imgur.com/gr6li6l.png" // zoom
+    ],
     details: [
         "160 Pages",
         "Dotted / Grid",
         "100gsm Premium Paper",
         "A5 Size (148 x 210 mm)",
-        "Gold Spiral Binding"
+        "Silver Spiral Binding"
     ],
     isNew: true
   },
@@ -396,17 +401,18 @@ export const PRODUCTS: Product[] = [
     subCategory: "spiral",
     price: 135.00,
     description: "Traditional roots with a modern attitude.",
-    image: "https://i.imgur.com/AmJk1a5.png",
+    image: "https://i.imgur.com/yqYyYBz.png",
     images: [
       "https://i.imgur.com/AmJk1a5.png",
-      "https://i.imgur.com/sVdzTfT.png"
+      "https://i.imgur.com/sVdzTfT.png",
+      "https://i.imgur.com/yqYyYBz.png"
     ],
     details: [
         "160 Pages",
         "Dotted / Grid",
         "100gsm Premium Paper",
         "A5 Size (148 x 210 mm)",
-        "Gold Spiral Binding"
+        "Silver Spiral Binding"
     ],
     isNew: false
   },
@@ -416,7 +422,7 @@ export const PRODUCTS: Product[] = [
     id: 31,
     name: "Weekly Planner",
     category: "planners",
-    subCategory: "notepad",
+    subCategory: "large",
     price: 145.00,
     description: "Crush your goals one week at a time. Minimalist design for maximum productivity.",
     image: "https://i.imgur.com/HE1ZdFi.png",
@@ -437,7 +443,7 @@ export const PRODUCTS: Product[] = [
     id: 32,
     name: "Daily Journal Grid",
     category: "planners",
-    subCategory: "notepad",
+    subCategory: "large",
     price: 145.00,
     description: "For the planners who love a good grid. Structured chaos at its finest.",
     image: "https://i.imgur.com/PMOwK6Z.png",
@@ -460,10 +466,10 @@ export const PRODUCTS: Product[] = [
     id: 18,
     name: "Lemon Zest",
     category: "planners", 
-    subCategory: "notepad",
+    subCategory: "small",
     price: 75.00,
     description: "When life gets sour, write it all down. This small but mighty notepad is perfect for quick thoughts and juicy ideas.",
-    image: "https://i.imgur.com/FIy2Y1j.png",
+    image: "https://i.imgur.com/33Cu0lx.png",
     images: [
         "https://i.imgur.com/FIy2Y1j.png",
         "https://i.imgur.com/YOkclqL.png",
@@ -482,12 +488,13 @@ export const PRODUCTS: Product[] = [
     id: 20,
     name: "The Script",
     category: "planners",
-    subCategory: "notepad",
+    subCategory: "large",
     price: 145.00,
     description: "Minimalist design, maximum space.",
-    image: "https://i.imgur.com/ldbwmWJ.png",
+    image: "https://i.imgur.com/9cpu1As.png",
     images: [
       "https://i.imgur.com/ldbwmWJ.png",
+      "https://i.imgur.com/9cpu1As.png",
       "https://i.imgur.com/NCkYkO0.png"
     ],
     details: [
@@ -503,12 +510,13 @@ export const PRODUCTS: Product[] = [
     id: 21,
     name: "Quick Note",
     category: "planners",
-    subCategory: "notepad",
+    subCategory: "small",
     price: 75.00,
     description: "No drama, just paper.",
-    image: "https://i.imgur.com/Js6SOLE.png",
+    image: "https://i.imgur.com/gub1Gl6.png",
     images: [
       "https://i.imgur.com/Js6SOLE.png",
+      "https://i.imgur.com/gub1Gl6.png",
       "https://i.imgur.com/CCoJw3Y.png"
     ],
     details: [
@@ -525,13 +533,15 @@ export const PRODUCTS: Product[] = [
     id: 22,
     name: "Masterplan",
     category: "planners",
-    subCategory: "planner",
+    subCategory: "large",
     price: 145.00,
     description: "Big enough for all your chaos.",
-    image: "https://i.imgur.com/zzDn6TT.png",
+    image: "https://i.imgur.com/gPyctks.png",
     images: [
-      "https://i.imgur.com/zzDn6TT.png",
-      "https://i.imgur.com/Mairvwu.png"
+      "https://i.imgur.com/gPyctks.png",
+      "https://i.imgur.com/VGKkhNT.png",
+      "https://i.imgur.com/h73q09g.png",
+      "https://i.imgur.com/nTWtll5.png"
     ],
     details: [
         "100 Pages",
@@ -544,12 +554,37 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 23,
-    name: "Blueprint",
+    name: "Trophical",
     category: "planners",
-    subCategory: "notepad",
+    subCategory: "small",
     price: 75.00,
     description: "Compact space for big ideas.",
-    image: "https://i.imgur.com/CCoJw3Y.png",
+    image: "https://i.imgur.com/aZxAIZr.png",
+        images: [
+      "https://i.imgur.com/NlB7e5i.png",
+      "https://i.imgur.com/aZxAIZr.png"
+    ],
+    details: [
+        "100 Pages",
+        "Unruled / Plain",
+        "100gsm Premium Paper",
+        "A6 Size (105 x 148 mm)",
+        "Tear-out Sheets"
+    ],
+    isNew: false
+  },
+    {
+    id: 24,
+    name: "Blueprint",
+    category: "planners",
+    subCategory: "small",
+    price: 75.00,
+    description: "Blank canvas for your imploding brain",
+    image: "https://i.imgur.com/eGQNuYF.png",
+        images: [
+      "https://i.imgur.com/eGQNuYF.png",
+      "https://i.imgur.com/WTtl0zc.png"
+    ],
     details: [
         "100 Pages",
         "Unruled / Plain",
