@@ -1,7 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
 import { Star, Quote, MapPin, Plus, X, Loader2, CheckCircle2 } from 'lucide-react';
-import { db, isFirebaseReady, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp } from '../services/firebase';
+import { db, isFirebaseReady } from '../services/firebase';
+
+// Firestore imports (namespace style)
+import * as firebaseFirestore from 'firebase/firestore';
+const { collection, addDoc, onSnapshot, query, orderBy, limit } =
+  firebaseFirestore as any;
 
 interface Review {
   id: string;
@@ -54,7 +58,7 @@ export const TestimonialsSection: React.FC = () => {
   // 🔥 FETCH REVIEWS (READ ONLY)
   // -----------------------------
   useEffect(() => {
-    if (!isFirebaseReady || !db) return;
+    if (!db) return;
 
     const q = query(
       collection(db, 'reviews'),
@@ -64,8 +68,8 @@ export const TestimonialsSection: React.FC = () => {
 
     const unsubscribe = onSnapshot(
       q,
-      (snapshot: any) => {
-        const fetchedReviews = snapshot.docs.map((doc: any) => ({
+      snapshot => {
+        const fetchedReviews = snapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
         }));
@@ -75,13 +79,13 @@ export const TestimonialsSection: React.FC = () => {
           return [...fetchedReviews, ...staticReviews];
         });
       },
-      (err: any) => {
+      err => {
         console.error('🔥 Reviews listener error:', err);
       }
     );
 
     return () => unsubscribe();
-  }, []);
+  }, [db]);
 
   // -----------------------------
   // ✍️ SUBMIT REVIEW (WRITE)
@@ -102,11 +106,16 @@ export const TestimonialsSection: React.FC = () => {
         location: formData.location,
         rating: formData.rating,
         text: formData.text,
-        createdAt: serverTimestamp(),
+        createdAt: Date.now(), // ✅ RULE-SAFE
       };
 
       try {
+        console.log('🟡 Attempting review write:', payload);
+
         await addDoc(collection(db, 'reviews'), payload);
+
+        console.log('✅ Review write succeeded');
+
         setFormData({ name: '', location: '', rating: 5, text: '' });
         setIsModalOpen(false);
       } catch (error) {
@@ -216,7 +225,7 @@ export const TestimonialsSection: React.FC = () => {
                 onChange={e =>
                   setFormData({ ...formData, name: e.target.value })
                 }
-                className="w-full border p-2 rounded focus:border-pink-500 outline-none"
+                className="w-full border p-2"
               />
 
               <textarea
@@ -226,16 +235,15 @@ export const TestimonialsSection: React.FC = () => {
                 onChange={e =>
                   setFormData({ ...formData, text: e.target.value })
                 }
-                className="w-full border p-2 rounded focus:border-pink-500 outline-none"
-                rows={4}
+                className="w-full border p-2"
               />
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-black text-white py-3 rounded font-bold uppercase tracking-wider hover:bg-gray-800 transition-colors"
+                className="w-full bg-black text-white py-3"
               >
-                {isSubmitting ? <Loader2 className="animate-spin mx-auto" /> : 'Submit Review'}
+                {isSubmitting ? 'Submitting…' : 'Submit Review'}
               </button>
             </form>
           </div>
