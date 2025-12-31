@@ -1,3 +1,4 @@
+
 export interface Product {
   id: number;
   name: string;
@@ -9,6 +10,7 @@ export interface Product {
   subCategory?: string;
   isNew?: boolean;
   details?: string[]; // Specific product details/specs
+  tags?: string[]; // For better searchability
 }
 
 // Using const object instead of enum for better runtime compatibility

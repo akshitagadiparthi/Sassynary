@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { PRODUCTS } from '../data/products';
 import { useWishlist } from '../contexts/WishlistContext';
@@ -5,10 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Product } from '../types';
 import { Heart, ArrowLeft, ShoppingBag, Bell, Share2, Loader2, CheckCircle } from 'lucide-react';
 import { getOptimizedImageUrl } from '../utils/imageUtils';
-import { db, isFirebaseReady } from '../services/firebase';
-import * as firebaseFirestore from 'firebase/firestore';
-
-const { doc, setDoc, serverTimestamp } = firebaseFirestore as any;
+import { db, isFirebaseReady, doc, setDoc, serverTimestamp } from '../services/firebase';
 
 interface WishlistPageProps {
   onBack: () => void;

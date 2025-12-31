@@ -1,19 +1,15 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { auth, isFirebaseReady } from '../services/firebase';
-// Fix: Import auth as namespace and cast to any to resolve "no exported member" type errors
-import * as firebaseAuth from 'firebase/auth';
-import { 
-  // We keep this purely for type reference if needed, though functions are destructured below
-} from 'firebase/auth';
 
-const { 
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { 
+  auth, 
+  isFirebaseReady, 
   onAuthStateChanged, 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
   updateProfile, 
   sendPasswordResetEmail, 
   signOut 
-} = firebaseAuth as any;
+} from '../services/firebase';
 
 interface AppUser {
   uid: string;
@@ -112,7 +108,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             'auth/invalid-credential', 
             'auth/user-not-found', 
             'auth/wrong-password', 
-            'auth/invalid-email',
+            'auth/invalid-email', 
             'auth/user-disabled'
         ];
         

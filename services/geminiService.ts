@@ -3,18 +3,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { GeneratorTone, Product } from '../types';
 import { PRODUCTS } from '../data/products';
 
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-
-// Create client only if key exists (prevents blank page)
-const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
-
-function ensureAI() {
-  if (!ai) {
-    throw new Error("Missing VITE_GEMINI_API_KEY. Add it in Vercel Environment Variables.");
-  }
-  return ai;
-}
-
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const generateSassyMessage = async (
   recipient: string,
@@ -31,7 +20,7 @@ export const generateSassyMessage = async (
       Keep it under 30 words. No hashtags.
     `;
 
-    const response = await ensureAI().models.generateContent({
+    const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: prompt,
       config: {
@@ -52,7 +41,7 @@ export const generateSassyMessage = async (
  */
 export const generateDailySass = async (): Promise<string> => {
   try {
-    const response = await ensureAI().models.generateContent({
+    const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: "Generate one short, witty, and sassy announcement bar sentence (max 10 words) for a stationery shop. Examples: 'Your to-do list is judging you.', 'Buy the notebook, write the chaos.', 'Standard shipping, non-standard sass.'",
       config: {
@@ -79,7 +68,7 @@ export const recommendProductByVibe = async (vibe: string): Promise<{ productId:
       category: p.category
     }));
 
-    const response = await ensureAI().models.generateContent({
+    const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: `Recommend one product from this list that best matches this user's vibe: "${vibe}".
       Available Products: ${JSON.stringify(productsContext)}

@@ -1,10 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
-import { db, isFirebaseReady } from '../services/firebase';
-// Fix: Import firestore as namespace and destructure to resolve "no exported member" errors
-import * as firebaseFirestore from 'firebase/firestore';
-const { doc, setDoc, updateDoc, arrayUnion, arrayRemove, onSnapshot } = firebaseFirestore as any;
+import { db, isFirebaseReady, doc, setDoc, arrayUnion, arrayRemove, onSnapshot } from '../services/firebase';
 
 interface WishlistContextType {
   wishlist: number[];
@@ -36,8 +33,6 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
                 const data = docSnap.data() as { wishlist?: number[] } | undefined;
                 setWishlist(data?.wishlist || []);
             } else {
-                // Initialize user doc if it doesn't exist
-                setDoc(userRef, { wishlist: [] }, { merge: true });
                 setWishlist([]);
             }
             setLoading(false);
@@ -76,8 +71,6 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     try {
         if (isFirebaseReady && db) {
             const userRef = doc(db, 'users', user.uid);
-            // Changed from updateDoc to setDoc with merge: true
-            // This ensures that if the document doesn't exist yet, it is created.
             await setDoc(userRef, {
                 wishlist: exists ? arrayRemove(productId) : arrayUnion(productId)
             }, { merge: true });
@@ -90,7 +83,7 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         console.error("Error updating wishlist:", error);
         // Revert on error
         setWishlist(wishlist); 
-        return true; // Still return true as we handled the error gracefully-ish
+        return true;
     }
   };
 

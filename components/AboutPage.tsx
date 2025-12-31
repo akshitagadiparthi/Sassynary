@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import {
   Heart,
@@ -139,8 +140,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, initialSection }) 
                 The Strategist
               </p>
               <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-                Studied across two continents, Akshita blends global perspective
-                with analytical precision. A Data Analyst at <strong>Toyota Industries</strong>.
+                Akshita blends global perspective with analytical precision. A Data Analyst at <strong>Toyota Industries</strong>.
               </p>
               <p className="italic text-sm text-gray-500">
                 "She crunches the numbers so we can crush the market."

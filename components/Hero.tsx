@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { getOptimizedImageUrl, generateImageSrcSet } from '../utils/imageUtils';
 
@@ -32,8 +33,7 @@ export const Hero: React.FC<HeroProps> = ({ onCtaClick, onLookbookClick }) => {
   };
 
   return (
-    <div className="relative w-full bg-[#F5F5F0] overflow-hidden">
-      {/* Decorative Floating Elements (Parallax) */}
+    <div className="relative w-full bg-[#FAF9F6] overflow-hidden">
       <div 
         className="absolute top-20 left-10 w-24 h-24 bg-pink-200/30 rounded-full blur-2xl pointer-events-none transition-transform duration-75"
         style={{ transform: `translate(${mousePos.x}px, ${mousePos.y}px)` }}
@@ -60,20 +60,20 @@ export const Hero: React.FC<HeroProps> = ({ onCtaClick, onLookbookClick }) => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in delay-150">
               <button 
                 onClick={onCtaClick}
-                className="bg-[#2D2D2D] text-white px-10 py-4 text-sm font-semibold tracking-widest hover:bg-pink-700 transition-all hover:scale-[1.02] active:scale-95 uppercase"
+                className="bg-pink-700 text-white px-10 py-4 rounded-lg text-sm font-semibold tracking-widest hover:bg-pink-800 shadow-lg shadow-pink-100 transition-all hover:scale-[1.02] active:scale-95 uppercase"
               >
                 Shop The Collection
               </button>
               <button 
                 onClick={onLookbookClick}
-                className="border border-[#2D2D2D] text-[#2D2D2D] px-10 py-4 text-sm font-semibold tracking-widest hover:bg-[#2D2D2D] hover:text-white transition-all hover:scale-[1.02] active:scale-95 uppercase"
+                className="border-2 border-gray-900 text-gray-900 px-10 py-4 rounded-lg text-sm font-semibold tracking-widest hover:bg-gray-900 hover:text-white transition-all hover:scale-[1.02] active:scale-95 uppercase"
               >
                 View Lookbook
               </button>
             </div>
           </div>
 
-          <div className="order-1 lg:order-2 relative h-[400px] lg:h-auto overflow-hidden bg-gray-200">
+          <div className="order-1 lg:order-2 relative h-[400px] lg:h-auto overflow-hidden bg-gray-100">
             <img 
               src={imgSrc} 
               srcSet={hasError ? undefined : heroSrcSet}

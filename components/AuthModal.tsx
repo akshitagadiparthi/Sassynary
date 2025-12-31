@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { X, ArrowRight, Loader2, AlertCircle, Eye, EyeOff, KeyRound } from 'lucide-react';
+
+import React, { useState, useEffect } from 'react';
+import { X, ArrowRight, Loader2, AlertCircle, Eye, EyeOff, KeyRound, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 interface AuthModalProps {
@@ -19,6 +20,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialVi
   const [showPassword, setShowPassword] = useState(false);
 
   const { login, register, resetPassword } = useAuth();
+
+  useEffect(() => {
+    if (isOpen) {
+        setView(initialView);
+        setError('');
+        setSuccessMsg('');
+    }
+  }, [isOpen, initialView]);
 
   if (!isOpen) return null;
 
@@ -41,8 +50,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialVi
       }
     } catch (err: any) {
       console.error("Auth Error Caught in Modal:", err);
-      
-      // Handle known Firebase Auth errors
       if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
         setError("Invalid email or password.");
       } else if (err.code === 'auth/email-already-in-use') {
@@ -69,26 +76,21 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialVi
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-      {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
+        className="absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
 
-      {/* Modal Content */}
-      <div className="relative w-full max-w-md bg-white shadow-2xl animate-fade-in overflow-hidden">
-        
-        {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b border-gray-100 bg-gray-50">
-          <h3 className="font-serif text-xl text-gray-900">
+      <div className="relative w-full max-w-md bg-white shadow-2xl animate-fade-in overflow-hidden border border-gray-100 rounded-xl">
+        <div className="flex justify-between items-center p-6 border-b border-gray-50 bg-white">
+          <h3 className="font-serif text-2xl text-gray-900">
             {view === 'login' ? 'Welcome Back' : view === 'register' ? 'Join the Club' : 'Reset Password'}
           </h3>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-900">
+          <button onClick={onClose} className="text-gray-400 hover:text-pink-600 p-1">
             <X size={20} />
           </button>
         </div>
 
-        {/* Form */}
         <div className="p-8">
             {view === 'login' && (
                 <p className="text-gray-500 mb-6 text-sm">
@@ -102,7 +104,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialVi
             )}
             {view === 'reset' && (
                 <p className="text-gray-500 mb-6 text-sm">
-                    Enter your email address and we'll send you a link to regain access to your account.
+                    Enter your email address and we'll send you a link to regain access.
                 </p>
             )}
 
@@ -115,43 +117,42 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialVi
             
             {successMsg && (
                 <div className="mb-4 p-3 bg-green-50 text-green-600 text-xs flex items-center gap-2 rounded border border-green-100">
-                    <CheckCircle size={14} className="flex-shrink-0" />
+                    <CheckCircle2 size={14} className="flex-shrink-0" />
                     <span>{successMsg}</span>
                 </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
-                
                 {view === 'register' && (
                     <div>
-                        <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Name</label>
+                        <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Name</label>
                         <input
                             required
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="w-full border border-gray-200 px-4 py-3 focus:border-pink-600 focus:outline-none transition-colors"
+                            className="w-full border border-gray-200 px-4 py-3 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-100 focus:outline-none transition-all text-sm"
                             placeholder="What should we call you?"
                         />
                     </div>
                 )}
 
                 <div>
-                    <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Email</label>
+                    <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Email</label>
                     <input
                         required
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full border border-gray-200 px-4 py-3 focus:border-pink-600 focus:outline-none transition-colors"
+                        className="w-full border border-gray-200 px-4 py-3 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-100 focus:outline-none transition-all text-sm"
                         placeholder="you@example.com"
                     />
                 </div>
 
                 {view !== 'reset' && (
                     <div>
-                        <div className="flex justify-between items-center mb-2">
-                            <label className="block text-xs font-bold uppercase tracking-widest text-gray-500">Password</label>
+                        <div className="flex justify-between items-center mb-1.5 ml-1">
+                            <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400">Password</label>
                             {view === 'login' && (
                                 <button 
                                     type="button"
@@ -168,17 +169,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialVi
                                 type={showPassword ? "text" : "password"}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full border border-gray-200 px-4 py-3 focus:border-pink-600 focus:outline-none transition-colors pr-12"
+                                className="w-full border border-gray-200 px-4 py-3 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-100 focus:outline-none transition-all pr-12 text-sm"
                                 placeholder="••••••••"
                                 minLength={6}
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-pink-600 transition-colors"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-pink-600 transition-colors p-1"
                                 tabIndex={-1}
                             >
-                                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                             </button>
                         </div>
                     </div>
@@ -187,7 +188,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialVi
                 <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-[#2D2D2D] text-white py-4 mt-2 text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
+                    className="w-full bg-pink-700 text-white py-4 mt-2 rounded-lg text-sm font-bold uppercase tracking-widest hover:bg-pink-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-pink-100 active:scale-[0.98]"
                 >
                     {loading ? <Loader2 className="animate-spin" size={16} /> : (
                         <>
@@ -200,8 +201,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialVi
                 </button>
             </form>
 
-            {/* Toggle View */}
-            <div className="mt-6 text-center text-sm text-gray-500">
+            <div className="mt-8 pt-6 border-t border-gray-50 text-center text-sm text-gray-500">
                 {view === 'login' ? (
                     <>
                         New here?{' '}
@@ -225,7 +225,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialVi
                 ) : (
                      <button 
                         onClick={() => switchView('login')}
-                        className="text-gray-500 font-bold hover:text-gray-900 flex items-center justify-center gap-2 mx-auto"
+                        className="text-gray-500 font-bold hover:text-pink-700 flex items-center justify-center gap-2 mx-auto transition-colors"
                     >
                         <ArrowRight size={14} className="rotate-180" />
                         Back to Login
@@ -237,22 +237,3 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialVi
     </div>
   );
 };
-
-// Simple Icon component for success message
-const CheckCircle = ({ size, className }: { size: number, className?: string }) => (
-    <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        width={size} 
-        height={size} 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
-        className={className}
-    >
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-    </svg>
-);

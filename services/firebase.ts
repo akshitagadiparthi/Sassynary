@@ -1,6 +1,5 @@
 
 import { initializeApp } from 'firebase/app';
-// Fix: Import firestore, storage and auth as namespace and cast to any to resolve "no exported member" type errors
 import * as firebaseFirestore from 'firebase/firestore';
 import * as firebaseStorage from 'firebase/storage';
 import * as firebaseAuth from 'firebase/auth';
@@ -29,7 +28,7 @@ let ready = false;
 
 try {
   app = initializeApp(firebaseConfig);
-  // Use casted namespaces for firestore, storage, and auth
+  // Use casted namespaces for firestore, storage, and auth to handle ESM imports
   dbVal = (firebaseFirestore as any).getFirestore(app);
   storageVal = (firebaseStorage as any).getStorage(app);
   authVal = (firebaseAuth as any).getAuth(app);
@@ -44,3 +43,39 @@ export const db = dbVal;
 export const storage = storageVal;
 export const auth = authVal;
 export const isFirebaseReady = ready;
+
+// Re-export Firestore functions to avoid "as any" casting in components
+export const { 
+    collection, 
+    addDoc, 
+    getDocs, 
+    doc, 
+    setDoc, 
+    deleteDoc, 
+    updateDoc, 
+    onSnapshot, 
+    query, 
+    where, 
+    orderBy, 
+    limit, 
+    serverTimestamp,
+    arrayUnion,
+    arrayRemove
+} = firebaseFirestore as any;
+
+// Re-export Storage functions
+export const {
+    ref,
+    uploadBytes,
+    getDownloadURL
+} = firebaseStorage as any;
+
+// Re-export Auth functions
+export const {
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    updateProfile,
+    sendPasswordResetEmail,
+    signOut
+} = firebaseAuth as any;

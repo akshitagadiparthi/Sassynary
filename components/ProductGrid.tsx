@@ -1,7 +1,8 @@
+
 import React, { useRef, useState, useEffect } from 'react';
 import { Product } from '../types';
 import { PRODUCTS } from '../data/products';
-import { Heart, ChevronLeft, ChevronRight, LayoutGrid, Grid3x3, List as ListIcon, Zap, TrendingUp } from 'lucide-react';
+import { Heart, ChevronLeft, ChevronRight, LayoutGrid, Grid3x3, List as ListIcon, Zap, TrendingUp, Search } from 'lucide-react';
 import { useWishlist } from '../contexts/WishlistContext';
 import { useCart } from '../contexts/CartContext';
 import { getOptimizedImageUrl, generateImageSrcSet } from '../utils/imageUtils';
@@ -46,7 +47,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       addToCart(product, 1);
   };
 
-  // CRO: Randomized "Selling Fast" tag
+  // Tag logic: High Demand / Limited
   const isHighDemand = product.id % 3 === 0;
   const isLimited = product.id % 5 === 0;
 
@@ -133,26 +134,24 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 />
             </div>
         
-            {/* CRO: BADGES */}
-            {product.isNew && (
-                <div className="absolute top-3 left-3 bg-white text-gray-900 text-[9px] font-bold px-3 py-1 uppercase tracking-widest z-20 shadow-sm border border-gray-100">
-                New
-                </div>
-            )}
-
-            {isHighDemand && (
-                <div className="absolute top-3 left-3 bg-pink-700 text-white text-[9px] font-bold px-3 py-1 uppercase tracking-widest z-20 shadow-sm flex items-center gap-1">
-                   <TrendingUp size={10} />
-                   Selling Fast
-                </div>
-            )}
-
-            {isLimited && (
-                <div className="absolute top-3 left-3 bg-gray-900 text-white text-[9px] font-bold px-3 py-1 uppercase tracking-widest z-20 shadow-sm flex items-center gap-1">
-                   <Zap size={10} />
-                   Limited
-                </div>
-            )}
+            {/* TAGS - Priority based so they never overlap */}
+            <div className="absolute top-3 left-3 z-20">
+                {product.isNew ? (
+                    <div className="bg-white text-gray-900 text-[9px] font-bold px-3 py-1 uppercase tracking-widest shadow-sm border border-gray-100">
+                        New
+                    </div>
+                ) : isHighDemand ? (
+                    <div className="bg-pink-700 text-white text-[9px] font-bold px-3 py-1 uppercase tracking-widest shadow-sm flex items-center gap-1">
+                        <TrendingUp size={10} />
+                        Selling Fast
+                    </div>
+                ) : isLimited ? (
+                    <div className="bg-gray-900 text-white text-[9px] font-bold px-3 py-1 uppercase tracking-widest shadow-sm flex items-center gap-1">
+                        <Zap size={10} />
+                        Limited
+                    </div>
+                ) : null}
+            </div>
             
             <button 
                 className={`absolute top-3 right-3 bg-white/90 p-2 rounded-full transition-all duration-300 z-20 hover:scale-110 ${isLoved ? 'opacity-100 text-pink-600' : 'opacity-0 group-hover:opacity-100 text-gray-400 hover:text-pink-600'}`}
@@ -191,6 +190,8 @@ interface ProductGridProps {
   showAll?: boolean;
   onlyNew?: boolean;
   onAuthReq: () => void;
+  limit?: number;
+  searchQuery?: string;
 }
 
 export const ProductGrid: React.FC<ProductGridProps> = ({ 
@@ -202,19 +203,42 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   onProductClick,
   showAll = false,
   onlyNew = false,
-  onAuthReq
+  onAuthReq,
+  limit,
+  searchQuery
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [layout, setLayout] = useState<'grid' | 'compact' | 'list'>('grid');
-  const shouldLimit = !category && viewMode === 'grid' && !showAll && !onlyNew;
+  // Disable limiting if there is a search query
+  const shouldLimit = !category && !searchQuery && viewMode === 'grid' && !showAll && !onlyNew;
   const showControls = viewMode === 'grid' && !shouldLimit;
 
   const filteredProducts = PRODUCTS.filter(p => {
+    if (searchQuery) {
+        // Advanced Multi-Word Search Logic
+        // 1. Split query into distinct lower-case words
+        const terms = searchQuery.toLowerCase().split(' ').filter(t => t.length > 0);
+        
+        // 2. Create a massive string of all searchable content for the product
+        // Includes name, description, category, subcategory, and all tags
+        const searchableText = [
+            p.name, 
+            p.description, 
+            p.category, 
+            p.subCategory || '',
+            ...(p.tags || [])
+        ].join(' ').toLowerCase();
+        
+        // 3. Check if EVERY term in the search query exists somewhere in the product data
+        // This allows "spiral notebooks" to match because "spiral" is in subCategory/tags and "notebooks" is in category
+        return terms.every(term => searchableText.includes(term));
+    }
+    
     if (onlyNew && !p.isNew) return false;
     if (category && p.category !== category) return false;
     if (subCategory && p.subCategory !== subCategory) return false;
     return true;
-  }).slice(0, shouldLimit ? 6 : undefined); 
+  }).slice(0, limit ? limit : shouldLimit ? 6 : undefined); 
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
@@ -235,7 +259,13 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
           <div className="text-left w-full md:w-auto">
             <h2 className="font-serif text-4xl md:text-5xl text-gray-900 mb-4">{title}</h2>
-            <p className="text-gray-500 font-light max-w-2xl">{subtitle}</p>
+            {searchQuery ? (
+                <p className="text-gray-500 font-light max-w-2xl">
+                    Showing {filteredProducts.length} results for "<span className="font-medium text-gray-900">{searchQuery}</span>"
+                </p>
+            ) : (
+                <p className="text-gray-500 font-light max-w-2xl">{subtitle}</p>
+            )}
           </div>
           
           {viewMode === 'carousel' && (
@@ -306,8 +336,12 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
             </div>
           )
         ) : (
-          <div className="text-center py-20">
-             <p className="text-gray-500 italic">No products found here yet.</p>
+          <div className="text-center py-20 bg-white border border-gray-100 rounded-lg">
+             <div className="bg-gray-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                 <Search className="text-gray-400" size={24} />
+             </div>
+             <h3 className="font-serif text-2xl text-gray-900 mb-2">No matches found</h3>
+             <p className="text-gray-500 italic">Try searching for "notebooks", "planners", or "cards".</p>
           </div>
         )}
       </div>

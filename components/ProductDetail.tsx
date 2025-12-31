@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useRef } from 'react';
 import { Product } from '../types';
 import { Star, Truck, ShieldCheck, ChevronDown, Minus, Plus, ArrowLeft, Instagram, Heart, ShoppingBag, Eye, Zap, CheckCircle2 } from 'lucide-react';
 import { ProductGrid } from './ProductGrid';
 import { useWishlist } from '../contexts/WishlistContext';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
-import { db, isFirebaseReady } from '../services/firebase';
-import * as firebaseFirestore from 'firebase/firestore';
+import { db, isFirebaseReady, doc, setDoc, serverTimestamp } from '../services/firebase';
 import { getOptimizedImageUrl, generateImageSrcSet } from '../utils/imageUtils';
-
-const { doc, setDoc, serverTimestamp } = firebaseFirestore as any;
 
 interface ProductDetailProps {
   product: Product;
@@ -40,29 +38,41 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product, onBack, o
   const [hasError, setHasError] = useState(false);
   const [viewCount] = useState(Math.floor(Math.random() * 40) + 10);
   
+  // Ref to ensure we track view only once per product/session to avoid loop
+  const viewTrackedRef = useRef(false);
+
   const { isInWishlist, toggleWishlist } = useWishlist();
   const { addToCart } = useCart();
   const { user } = useAuth();
 
   const activeImageSrcSet = generateImageSrcSet(activeImage);
 
+  // Effect to reset tracking when product changes
   useEffect(() => {
     setActiveImage(product.image);
     setQuantity(1);
     setMainImageLoaded(false);
     setHasError(false);
+    viewTrackedRef.current = false;
+  }, [product.id]);
 
-    // Track "Product Viewed" signal for reminders
-    if (isFirebaseReady && db && user) {
-        setDoc(doc(db, 'user_signals', `${user.uid}_view_${product.id}`), {
-            userId: user.uid,
-            productId: product.id,
-            productName: product.name,
-            timestamp: serverTimestamp(),
-            type: 'view'
-        }, { merge: true });
+  // Separate effect for tracking to isolate dependencies
+  useEffect(() => {
+    if (isFirebaseReady && db && user && !viewTrackedRef.current) {
+        viewTrackedRef.current = true; // Mark as tracked immediately
+        try {
+            setDoc(doc(db, 'user_signals', `${user.uid}_view_${product.id}`), {
+                userId: user.uid,
+                productId: product.id,
+                productName: product.name,
+                timestamp: serverTimestamp(),
+                type: 'view'
+            }, { merge: true });
+        } catch (e) {
+            console.error("View tracking error", e);
+        }
     }
-  }, [product, user]);
+  }, [product.id, product.name, user]);
   
   const isLoved = isInWishlist(product.id);
 
@@ -132,6 +142,9 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product, onBack, o
                 ))}
                 </div>
             )}
+            <p className="text-[10px] text-gray-400 font-light italic text-center leading-relaxed">
+               *Disclaimer: Actual product colors may vary slightly from images due to photographic lighting sources or your monitor settings.
+            </p>
           </div>
 
           <div className="lg:py-4">

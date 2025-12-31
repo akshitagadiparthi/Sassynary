@@ -1,7 +1,10 @@
+
 import { Product } from '../types';
 
 export const PRODUCTS: Product[] = [
-  // --- MYSTERY BOX ---
+  // --- TRENDING MIX (Top 10-12) ---
+  
+  // 1. Mystery Box
   {
     id: 99,
     name: "Surprise Me! Mystery Box",
@@ -16,140 +19,22 @@ export const PRODUCTS: Product[] = [
         "Total Value: ₹400+",
         "Comes in a cute package"
     ],
-    isNew: true
+    isNew: true,
+    tags: ["gift", "bundle", "surprise", "set", "mystery", "value"]
   },
-  // --- GREETING CARDS - Sassier Names & Standardized Details ---
-  {
-    id: 101,
-    name: "Happy New Year- Dark theme",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "You make my heart skip a beat. Literally. Please stop.",
-    image: "https://i.imgur.com/BrgDOIQ.png",
-    images: ["https://i.imgur.com/BrgDOIQ.png", "https://i.imgur.com/eahMott.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"]
-  },
-  {
-    id: 102,
-    name: "Main Squeeze",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "Wish your near and dear a happy 2026",
-    image: "https://i.imgur.com/2J5EqGI.png",
-    images: ["https://i.imgur.com/2J5EqGI.png", "https://i.imgur.com/WTOXmM4.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"]
-  },
-  {
-    id: 103,
-    name: "You mmake me..",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "Speak through our cards",
-    image: "https://i.imgur.com/prgHhPD.png",
-    images: ["https://i.imgur.com/prgHhPD.png", "https://i.imgur.com/Tn2SDOM.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"]
-  },
-  {
-    id: 104,
-    name: "Birthday cake",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "Send cake for their birthday, minus the calories.",
-    image: "https://i.imgur.com/TPC3r3G.png",
-    images: ["https://i.imgur.com/TPC3r3G.png", "https://i.imgur.com/hGUIXOK.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"]
-  },
-  {
-    id: 105,
-    name: "Watercolor birthday",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "Happy birthday. Simple, cute. ",
-    image: "https://i.imgur.com/NnkYW0m.png",
-    images: ["https://i.imgur.com/NnkYW0m.png", "https://i.imgur.com/kbe2Auv.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"]
-  },
-  {
-    id: 106,
-    name: "Birthday candles",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "Wish them birthday with candles because they light up everywhere they go.",
-    image: "https://i.imgur.com/CE6KrRo.png",
-    images: ["https://i.imgur.com/CE6KrRo.png", "https://i.imgur.com/K1Bt8Yt.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"]
-  },
-  {
-    id: 107,
-    name: "Toasty",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "Give them a toast on their special day.",
-    image: "https://i.imgur.com/x8YgfHi.png",
-    images: ["https://i.imgur.com/x8YgfHi.png", "https://i.imgur.com/vTR0zaY.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"]
-  },
-  {
-    id: 108,
-    name: "Congratualations",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "Tell them they are doing great with the cards, because every milestone counts.",
-    image: "https://i.imgur.com/MFElr3D.png",
-    images: ["https://i.imgur.com/MFElr3D.png", "https://i.imgur.com/gLZscEA.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"]
-  },
-  {
-    id: 109,
-    name: "Spark Session",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "We're a perfect match. Sparks flying.",
-    image: "https://i.imgur.com/vhETIzM.png",
-    images: ["https://i.imgur.com/vhETIzM.png", "https://i.imgur.com/92i3v2u.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"]
-  },
-  {
-    id: 110,
-    name: "Birthday Candles",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "Wish em happy birthday. ",
-    image: "https://i.imgur.com/ZJS67QP.png",
-    images: ["https://i.imgur.com/ZJS67QP.png", "https://i.imgur.com/NAjUrBy.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"]
-  },
-  {
-    id: 111,
-    name: "Thank you ",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "Thank you Cards because sometimes you need to put the gratitude on paper.",
-    image: "https://i.imgur.com/G5iKUy6.png",
-    images: ["https://i.imgur.com/G5iKUy6.png", "https://i.imgur.com/5dyVLvm.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"]
-  },
-  {
-    id: 112,
-    name: "Enjoying Animals",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "You're punderful. Send a fun birthday card to the funny ones!",
-    image: "https://i.imgur.com/sdFGFI7.png",
-    images: ["https://i.imgur.com/sdFGFI7.png", "https://i.imgur.com/2FR5Y8P.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"]
-  },
+  // 2. Card: 2026
   {
     id: 113,
     name: "2026 card",
     category: "greeting-cards",
     price: 10.00,
-    description: "Cheers to the new year together!. ",
+    description: "Cheers to the new year together! ",
     image: "https://i.imgur.com/0gkT9Dn.png",
     images: ["https://i.imgur.com/0gkT9Dn.png", "https://i.imgur.com/K1Bt8Yt.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"]
+    details: ["Premium 300gsm Cardstock", "A6 size"],
+    tags: ["new year", "2026", "holiday", "celebration", "party"]
   },
-  // --- NOTEBOOKS (PINNED) - Rule: 160 Pages, Price 125 ---
+  // 3. Notebook: Gotham
   {
     id: 33,
     name: "Gotham Log",
@@ -170,8 +55,107 @@ export const PRODUCTS: Product[] = [
         "A5 Size (148 x 210 mm)",
         "Lay-flat Pinned Binding"
     ],
-    isNew: true
+    isNew: true,
+    tags: ["black", "dark", "hero", "minimal", "men", "pinned", "journal", "ruled", "lined"]
   },
+  // 4. Planner: Weekly
+  {
+    id: 31,
+    name: "Weekly Planner",
+    category: "planners",
+    subCategory: "large",
+    price: 145.00,
+    description: "Crush your goals one week at a time. Minimalist design for maximum productivity.",
+    image: "https://i.imgur.com/HE1ZdFi.png",
+    images: [
+        "https://i.imgur.com/HE1ZdFi.png",
+        "https://i.imgur.com/4qFx68n.png"
+    ],
+    details: [
+        "120 Pages",
+        "Undated Weekly Layout",
+        "100gsm Premium Paper",
+        "A5 Size (148 x 210 mm)",
+        "Tear-out Notepad"
+    ],
+    isNew: true,
+    tags: ["weekly", "organizer", "schedule", "productivity", "undated", "planner"]
+  },
+  // 5. Card: New Year!!
+  {
+    id: 102,
+    name: "New Year!!",
+    category: "greeting-cards",
+    price: 10.00,
+    description: "Wish your near and dear a happy 2026",
+    image: "https://i.imgur.com/2J5EqGI.png",
+    images: ["https://i.imgur.com/2J5EqGI.png", "https://i.imgur.com/WTOXmM4.png"],
+    details: ["Premium 300gsm Cardstock", "A6 size"],
+    tags: ["new year", "2026", "holiday", "celebration", "family"]
+  },
+  // 6. Notebook: Crimson
+  {
+    id: 29,
+    name: "Crimson Notes",
+    category: "notebooks",
+    subCategory: "spiral",
+    price: 135.00,
+    description: "Bold notes for bold people. This crimson beauty is ready for your fire ideas.",
+    image: "https://i.imgur.com/zhSNMyX.jpeg",
+    images: [
+        "https://i.imgur.com/zhSNMyX.jpeg",
+        "https://i.imgur.com/YLZ6tkE.png",
+        "https://i.imgur.com/dqJOyQc.png"
+
+    ],
+    details: [
+        "160 Pages",
+        "Ruled / Lined",
+        "100gsm Premium Paper",
+        "A5 Size (148 x 210 mm)",
+        "Gold Spiral Binding"
+    ],
+    isNew: true,
+    tags: ["red", "spiral", "wirebound", "bold", "journal", "lined", "ruled"]
+  },
+  // 7. Planner: Daily Grid
+  {
+    id: 32,
+    name: "Daily Journal Grid",
+    category: "planners",
+    subCategory: "large",
+    price: 145.00,
+    description: "For the planners who love a good grid. Structured chaos at its finest.",
+    image: "https://i.imgur.com/PMOwK6Z.png",
+    images: [
+        "https://i.imgur.com/PMOwK6Z.png",
+        "https://i.imgur.com/kVgxUBz.png",
+        "https://i.imgur.com/FoMD16t.png",
+        "https://i.imgur.com/jgeLJfY.png"
+    ],
+    details: [
+        "120 Pages",
+        "Dot Grid / Structured Layout",
+        "100gsm Premium Paper",
+        "A5 Size (148 x 210 mm)",
+        "Tear-out Notepad"
+    ],
+    isNew: true,
+    tags: ["daily", "grid", "dot grid", "journal", "structured", "planner", "dotted"]
+  },
+  // 8. Card: Dark Theme
+  {
+    id: 101,
+    name: "Happy New Year- Dark theme",
+    category: "greeting-cards",
+    price: 10.00,
+    description: "You make my heart skip a beat. Literally. Please stop.",
+    image: "https://i.imgur.com/BrgDOIQ.png",
+    images: ["https://i.imgur.com/BrgDOIQ.png", "https://i.imgur.com/eahMott.png"],
+    details: ["Premium 300gsm Cardstock", "A6 size"],
+    tags: ["new year", "dark", "funny", "sarcastic", "2026", "black"]
+  },
+  // 9. Notebook: Celestial
   {
     id: 30,
     name: "Celestial Book",
@@ -191,8 +175,37 @@ export const PRODUCTS: Product[] = [
         "A5 Size (148 x 210 mm)",
         "Lay-flat Pinned Binding"
     ],
-    isNew: true
+    isNew: true,
+    tags: ["space", "stars", "blue", "cosmic", "pinned", "journal", "ruled", "lined"]
   },
+  // 10. Notebook: Clean Slate
+  {
+    id: 28,
+    name: "Clean Slate",
+    category: "notebooks",
+    subCategory: "pinned",
+    price: 125.00,
+    description: "Clean, crisp, and ready for your chaos.",
+    image: "https://i.imgur.com/wdc3UbQ.png",
+    images: [
+      "https://i.imgur.com/y2Jnqd8.png",
+      "https://i.imgur.com/00YqPdF.png",
+      "https://i.imgur.com/wdc3UbQ.png"
+    ],
+    details: [
+        "160 Pages",
+        "Dotted / Grid",
+        "100gsm Acid-Free Paper",
+        "A5 Size (148 x 210 mm)",
+        "Lay-flat Pinned Binding"
+    ],
+    isNew: true,
+    tags: ["white", "minimal", "simple", "pinned", "grid", "journal", "dotted", "dot grid"]
+  },
+
+  // --- REST OF CATALOG ---
+  
+  // Notebooks
   {
     id: 1,
     name: "Extra Spicy",
@@ -213,7 +226,8 @@ export const PRODUCTS: Product[] = [
         "A5 Size (148 x 210 mm)",
         "Lay-flat Pinned Binding"
     ],
-    isNew: false
+    isNew: false,
+    tags: ["red", "spicy", "bold", "pinned", "journal", "lined", "ruled"]
   },
   {
     id: 16,
@@ -236,7 +250,8 @@ export const PRODUCTS: Product[] = [
         "A5 Size (148 x 210 mm)",
         "Coffee-Colored Accents"
     ],
-    isNew: false
+    isNew: false,
+    tags: ["brown", "coffee", "pinned", "journal", "lined", "warm", "ruled"]
   },
   {
     id: 17,
@@ -259,7 +274,8 @@ export const PRODUCTS: Product[] = [
         "A5 Size",
         "Coquette Aesthetic"
     ],
-    isNew: false
+    isNew: false,
+    tags: ["pink", "bows", "cute", "aesthetic", "pinned", "journal", "blank", "plain"]
   },
   {
     id: 24,
@@ -281,7 +297,8 @@ export const PRODUCTS: Product[] = [
         "A5 Size (148 x 210 mm)",
         "Lay-flat Pinned Binding"
     ],
-    isNew: false
+    isNew: false,
+    tags: ["pastel", "gradient", "soft", "pinned", "journal", "lined", "ruled"]
   },
   {
     id: 27,
@@ -302,54 +319,8 @@ export const PRODUCTS: Product[] = [
         "A5 Size (148 x 210 mm)",
         "Lay-flat Pinned Binding"
     ],
-    isNew: false
-  },
-  {
-    id: 28,
-    name: "Clean Slate",
-    category: "notebooks",
-    subCategory: "pinned",
-    price: 125.00,
-    description: "Clean, crisp, and ready for your chaos.",
-    image: "https://i.imgur.com/wdc3UbQ.png",
-    images: [
-      "https://i.imgur.com/y2Jnqd8.png",
-      "https://i.imgur.com/00YqPdF.png",
-      "https://i.imgur.com/wdc3UbQ.png"
-    ],
-    details: [
-        "160 Pages",
-        "Dotted / Grid",
-        "100gsm Acid-Free Paper",
-        "A5 Size (148 x 210 mm)",
-        "Lay-flat Pinned Binding"
-    ],
-    isNew: true
-  },
-
-  // --- NOTEBOOKS (SPIRAL) - Rule: 160 Pages, Price 135 ---
-  {
-    id: 29,
-    name: "Crimson Notes",
-    category: "notebooks",
-    subCategory: "spiral",
-    price: 135.00,
-    description: "Bold notes for bold people. This crimson beauty is ready for your fire ideas.",
-    image: "https://i.imgur.com/zhSNMyX.jpeg",
-    images: [
-        "https://i.imgur.com/zhSNMyX.jpeg",
-        "https://i.imgur.com/YLZ6tkE.png",
-        "https://i.imgur.com/dqJOyQc.png"
-
-    ],
-    details: [
-        "160 Pages",
-        "Ruled / Lined",
-        "100gsm Premium Paper",
-        "A5 Size (148 x 210 mm)",
-        "Gold Spiral Binding"
-    ],
-    isNew: true
+    isNew: false,
+    tags: ["race", "car", "checkered", "red", "pinned", "journal", "sport", "ruled", "lined"]
   },
   {
     id: 19,
@@ -370,7 +341,8 @@ export const PRODUCTS: Product[] = [
         "A5 Size (148 x 210 mm)",
         "Silver Spiral Binding"
     ],
-    isNew: false
+    isNew: false,
+    tags: ["black", "white", "checkerboard", "spiral", "wirebound", "grid", "journal", "dotted", "dot grid"]
   },
   {
     id: 25,
@@ -392,7 +364,8 @@ export const PRODUCTS: Product[] = [
         "A5 Size (148 x 210 mm)",
         "Silver Spiral Binding"
     ],
-    isNew: true
+    isNew: true,
+    tags: ["purple", "lilac", "spiral", "wirebound", "grid", "journal", "pastel", "dotted", "dot grid"]
   },
   {
     id: 26,
@@ -414,54 +387,11 @@ export const PRODUCTS: Product[] = [
         "A5 Size (148 x 210 mm)",
         "Silver Spiral Binding"
     ],
-    isNew: false
+    isNew: false,
+    tags: ["indian", "pattern", "desi", "spiral", "wirebound", "grid", "journal", "dotted", "dot grid"]
   },
 
-  // --- PLANNERS / NOTEPADS - Rule: A6 Small 75rs, A5 Large 145rs ---
-  {
-    id: 31,
-    name: "Weekly Planner",
-    category: "planners",
-    subCategory: "large",
-    price: 145.00,
-    description: "Crush your goals one week at a time. Minimalist design for maximum productivity.",
-    image: "https://i.imgur.com/HE1ZdFi.png",
-    images: [
-        "https://i.imgur.com/HE1ZdFi.png",
-        "https://i.imgur.com/4qFx68n.png"
-    ],
-    details: [
-        "120 Pages",
-        "Undated Weekly Layout",
-        "100gsm Premium Paper",
-        "A5 Size (148 x 210 mm)",
-        "Tear-out Notepad"
-    ],
-    isNew: true
-  },
-  {
-    id: 32,
-    name: "Daily Journal Grid",
-    category: "planners",
-    subCategory: "large",
-    price: 145.00,
-    description: "For the planners who love a good grid. Structured chaos at its finest.",
-    image: "https://i.imgur.com/PMOwK6Z.png",
-    images: [
-        "https://i.imgur.com/PMOwK6Z.png",
-        "https://i.imgur.com/kVgxUBz.png",
-        "https://i.imgur.com/FoMD16t.png",
-        "https://i.imgur.com/jgeLJfY.png"
-    ],
-    details: [
-        "120 Pages",
-        "Dot Grid / Structured Layout",
-        "100gsm Premium Paper",
-        "A5 Size (148 x 210 mm)",
-        "Tear-out Notepad"
-    ],
-    isNew: true
-  },
+  // Planners
   {
     id: 18,
     name: "Lemon Zest",
@@ -482,7 +412,8 @@ export const PRODUCTS: Product[] = [
         "A6 Size (105 x 148 mm)",
         "Tear-out Notepad"
     ],
-    isNew: false
+    isNew: false,
+    tags: ["yellow", "lemon", "notepad", "small", "pocket", "fruit", "plain", "unruled", "blank"]
   },
   {
     id: 20,
@@ -504,7 +435,8 @@ export const PRODUCTS: Product[] = [
         "A5 Size (148 x 210 mm)",
         "Tear-out Notepad"
     ],
-    isNew: true
+    isNew: true,
+    tags: ["text", "typography", "beige", "notepad", "large", "minimal", "plain", "unruled", "blank"]
   },
   {
     id: 21,
@@ -526,9 +458,9 @@ export const PRODUCTS: Product[] = [
         "A6 Size (105 x 148 mm)",
         "Tear-out Notepad"
     ],
-    isNew: false
+    isNew: false,
+    tags: ["blue", "notepad", "small", "pocket", "simple", "plain", "unruled", "blank"]
   },
-  // --- BIGGER PLANNERS ---
   {
     id: 22,
     name: "Masterplan",
@@ -550,7 +482,8 @@ export const PRODUCTS: Product[] = [
         "A5 Size (148 x 210 mm)",
         "Tear-out Sheets"
     ],
-    isNew: false
+    isNew: false,
+    tags: ["green", "planner", "daily", "large", "undated", "organizer"]
   },
   {
     id: 23,
@@ -571,10 +504,11 @@ export const PRODUCTS: Product[] = [
         "A6 Size (105 x 148 mm)",
         "Tear-out Sheets"
     ],
-    isNew: false
+    isNew: false,
+    tags: ["green", "palm", "tropical", "notepad", "small", "pocket", "plain", "unruled", "blank"]
   },
-    {
-    id: 24,
+  {
+    id: 34,
     name: "Blueprint",
     category: "planners",
     subCategory: "small",
@@ -592,6 +526,119 @@ export const PRODUCTS: Product[] = [
         "A6 Size (105 x 148 mm)",
         "Tear-out Sheets"
     ],
-    isNew: false
+    isNew: false,
+    tags: ["blue", "grid", "technical", "notepad", "small", "architect", "plain", "unruled", "blank"]
+  },
+
+  // Other Greeting Cards
+  {
+    id: 103,
+    name: "You make me..",
+    category: "greeting-cards",
+    price: 10.00,
+    description: "Speak through our cards",
+    image: "https://i.imgur.com/prgHhPD.png",
+    images: ["https://i.imgur.com/prgHhPD.png", "https://i.imgur.com/Tn2SDOM.png"],
+    details: ["Premium 300gsm Cardstock", "A6 size"],
+    tags: ["love", "romance", "funny", "pun", "pink"]
+  },
+  {
+    id: 104,
+    name: "Birthday cake",
+    category: "greeting-cards",
+    price: 10.00,
+    description: "Send cake for their birthday, minus the calories.",
+    image: "https://i.imgur.com/TPC3r3G.png",
+    images: ["https://i.imgur.com/TPC3r3G.png", "https://i.imgur.com/hGUIXOK.png"],
+    details: ["Premium 300gsm Cardstock", "A6 size"],
+    tags: ["birthday", "cake", "food", "funny", "celebration"]
+  },
+  {
+    id: 105,
+    name: "Watercolor birthday",
+    category: "greeting-cards",
+    price: 10.00,
+    description: "Happy birthday. Simple, cute. ",
+    image: "https://i.imgur.com/NnkYW0m.png",
+    images: ["https://i.imgur.com/NnkYW0m.png", "https://i.imgur.com/kbe2Auv.png"],
+    details: ["Premium 300gsm Cardstock", "A6 size"],
+    tags: ["birthday", "art", "watercolor", "cute", "simple"]
+  },
+  {
+    id: 106,
+    name: "Wish away!",
+    category: "greeting-cards",
+    price: 10.00,
+    description: "Wish them birthday with candles because they light up everywhere they go.",
+    image: "https://i.imgur.com/CE6KrRo.png",
+    images: ["https://i.imgur.com/CE6KrRo.png", "https://i.imgur.com/K1Bt8Yt.png"],
+    details: ["Premium 300gsm Cardstock", "A6 size"],
+    tags: ["birthday", "candles", "wishes", "cake", "party"]
+  },
+  {
+    id: 107,
+    name: "Toasty",
+    category: "greeting-cards",
+    price: 10.00,
+    description: "Give them a toast on their special day.",
+    image: "https://i.imgur.com/x8YgfHi.png",
+    images: ["https://i.imgur.com/x8YgfHi.png", "https://i.imgur.com/vTR0zaY.png"],
+    details: ["Premium 300gsm Cardstock", "A6 size"],
+    tags: ["birthday", "toast", "food", "pun", "funny"]
+  },
+  {
+    id: 108,
+    name: "Congratualations",
+    category: "greeting-cards",
+    price: 10.00,
+    description: "Tell them they are doing great with the cards, because every milestone counts.",
+    image: "https://i.imgur.com/MFElr3D.png",
+    images: ["https://i.imgur.com/MFElr3D.png", "https://i.imgur.com/gLZscEA.png"],
+    details: ["Premium 300gsm Cardstock", "A6 size"],
+    tags: ["congrats", "celebration", "achievement", "milestone", "success"]
+  },
+  {
+    id: 109,
+    name: "Spark Session",
+    category: "greeting-cards",
+    price: 10.00,
+    description: "We're a perfect match. Sparks flying.",
+    image: "https://i.imgur.com/vhETIzM.png",
+    images: ["https://i.imgur.com/vhETIzM.png", "https://i.imgur.com/92i3v2u.png"],
+    details: ["Premium 300gsm Cardstock", "A6 size"],
+    tags: ["love", "romance", "match", "sparks", "dating"]
+  },
+  {
+    id: 110,
+    name: "Birthday Candles",
+    category: "greeting-cards",
+    price: 10.00,
+    description: "Wish em happy birthday. ",
+    image: "https://i.imgur.com/ZJS67QP.png",
+    images: ["https://i.imgur.com/ZJS67QP.png", "https://i.imgur.com/NAjUrBy.png"],
+    details: ["Premium 300gsm Cardstock", "A6 size"],
+    tags: ["birthday", "candles", "classic", "simple"]
+  },
+  {
+    id: 111,
+    name: "Thank you ",
+    category: "greeting-cards",
+    price: 10.00,
+    description: "Thank you Cards because sometimes you need to put the gratitude on paper.",
+    image: "https://i.imgur.com/G5iKUy6.png",
+    images: ["https://i.imgur.com/G5iKUy6.png", "https://i.imgur.com/5dyVLvm.png"],
+    details: ["Premium 300gsm Cardstock", "A6 size"],
+    tags: ["thank you", "gratitude", "thanks", "simple"]
+  },
+  {
+    id: 112,
+    name: "Enjoying Animals",
+    category: "greeting-cards",
+    price: 10.00,
+    description: "You're punderful. Send a fun birthday card to the funny ones!",
+    image: "https://i.imgur.com/sdFGFI7.png",
+    images: ["https://i.imgur.com/sdFGFI7.png", "https://i.imgur.com/2FR5Y8P.png"],
+    details: ["Premium 300gsm Cardstock", "A6 size"],
+    tags: ["birthday", "animals", "funny", "cute", "pun"]
   }
 ];

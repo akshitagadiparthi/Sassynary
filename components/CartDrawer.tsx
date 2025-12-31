@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { X, Minus, Plus, Trash2, Instagram, ShoppingBag, ArrowRight, ShieldCheck, Clock, CreditCard } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
@@ -116,21 +117,20 @@ export const CartDrawer: React.FC<{ onCheckout: () => void }> = ({ onCheckout })
                 <div className="space-y-3">
                   <button 
                       onClick={() => { setIsCartOpen(false); onCheckout(); }}
-                      className="w-full bg-[#2D2D2D] text-white py-4 rounded font-bold uppercase tracking-widest text-sm hover:bg-black transition-colors flex items-center justify-center gap-2 group"
+                      className="w-full bg-pink-700 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-pink-800 transition-colors flex items-center justify-center gap-2 group shadow-lg shadow-pink-100"
                   >
-                      <span>Secure Checkout</span>
-                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                      <span>Checkout via Instagram</span>
+                      <Instagram size={16} className="group-hover:scale-110 transition-transform" />
                   </button>
                   
                   <div className="flex items-center justify-center gap-4 text-gray-400 opacity-60">
-                     <CreditCard size={16} />
-                     <span className="text-[10px] font-bold uppercase tracking-widest">UPI • Cards • Netbanking</span>
+                     <span className="text-[10px] font-bold uppercase tracking-widest">DM us for final confirmation</span>
                   </div>
                 </div>
 
                 <div className="mt-6 flex items-center justify-center gap-2 text-gray-400 text-[10px] font-bold uppercase tracking-widest">
                   <ShieldCheck size={14} className="text-green-600" />
-                  <span>100% Secure Transaction</span>
+                  <span>100% Genuine Products</span>
                 </div>
             </div>
         )}

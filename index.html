@@ -1,8 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="color-scheme" content="light">
     <title>Sassynary | Fun Stationery</title>
     
     <!-- PERFORMANCE: Preconnect to CDNs with nodes in India -->
@@ -15,8 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS CDN -->
-   <script src="https://cdn.tailwindcss.com"></script>
-
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
@@ -50,11 +51,27 @@
     </script>
 
     <style>
-      body { margin: 0; padding: 0; background-color: #FAF9F6; font-family: 'Poppins', sans-serif; -webkit-font-smoothing: antialiased; }
+      /* Force light theme colors even if browser tries to invert */
+      :root {
+        color-scheme: light;
+      }
+      body { 
+        margin: 0; 
+        padding: 0; 
+        background-color: #FAF9F6 !important; 
+        color: #1a1a1a !important;
+        font-family: 'Poppins', sans-serif; 
+        -webkit-font-smoothing: antialiased; 
+      }
       h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
-      #root { min-height: 100vh; display: flex; flex-direction: column; }
+      #root { min-height: 100vh; display: flex; flex-direction: column; background-color: #FAF9F6; }
       .scrollbar-hide::-webkit-scrollbar { display: none; }
       .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+      
+      /* Avoid "Black Box" behavior in forced dark modes */
+      div, section, main, header, footer {
+        border-color: rgba(0,0,0,0.05);
+      }
     </style>
 
   <script type="importmap">
