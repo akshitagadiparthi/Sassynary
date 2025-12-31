@@ -18,7 +18,16 @@ function ensureAI() {
 
 export const generateSassyMessage = async (
   recipient: string,
-@@ -20,7 +31,7 @@
+  occasion: string,
+  tone: GeneratorTone
+): Promise<string> => {
+  try {
+    const prompt = `
+      Write a short, punchy, and memorable message to write in a greeting card or notebook.
+      Target Audience: ${recipient}
+      Occasion/Context: ${occasion}
+      Tone: ${tone}
+      Brand: Sassynary (bold, fun, edgy).
       Keep it under 30 words. No hashtags.
     `;
 
@@ -27,7 +36,20 @@ export const generateSassyMessage = async (
       model: 'gemini-3-flash-preview',
       contents: prompt,
       config: {
-@@ -41,7 +52,7 @@
+        temperature: 1.2,
+        systemInstruction: "You are the Sassy Scribe for Sassynary stationery. You are witty, slightly roasting, and empowering.",
+      }
+    });
+
+    return response.text || "Writer's block... try again!";
+  } catch (error) {
+    console.error("Error:", error);
+    return "Oops! My sass circuit overloaded.";
+  }
+};
+
+/**
+ * Generates a single, witty line for the top announcement bar.
  */
 export const generateDailySass = async (): Promise<string> => {
   try {
@@ -36,7 +58,26 @@ export const generateDailySass = async (): Promise<string> => {
       model: 'gemini-3-flash-preview',
       contents: "Generate one short, witty, and sassy announcement bar sentence (max 10 words) for a stationery shop. Examples: 'Your to-do list is judging you.', 'Buy the notebook, write the chaos.', 'Standard shipping, non-standard sass.'",
       config: {
-@@ -68,42 +79,42 @@
+        temperature: 1.0,
+        systemInstruction: "You are a witty copywriter for Sassynary. You specialize in one-liners about stationery and life productivity.",
+      }
+    });
+    return response.text?.trim() || "FLAT SHIPPING ₹79 ACROSS INDIA";
+  } catch {
+    return "FLAT SHIPPING ₹79 ACROSS INDIA";
+  }
+};
+
+/**
+ * Recommends a product based on the user's "vibe" using AI.
+ */
+export const recommendProductByVibe = async (vibe: string): Promise<{ productId: number; reason: string }> => {
+  try {
+    // We only send minimal product info to keep the prompt tokens low
+    const productsContext = PRODUCTS.map(p => ({
+      id: p.id,
+      name: p.name,
+      description: p.description,
       category: p.category
     }));
 
