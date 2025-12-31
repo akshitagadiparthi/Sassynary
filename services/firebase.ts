@@ -1,8 +1,38 @@
 
 import { initializeApp } from 'firebase/app';
-import * as firebaseFirestore from 'firebase/firestore';
-import * as firebaseStorage from 'firebase/storage';
-import * as firebaseAuth from 'firebase/auth';
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  getDocs, 
+  doc, 
+  setDoc, 
+  deleteDoc, 
+  updateDoc, 
+  onSnapshot, 
+  query, 
+  where, 
+  orderBy, 
+  limit, 
+  serverTimestamp, 
+  arrayUnion, 
+  arrayRemove 
+} from 'firebase/firestore';
+import { 
+  getStorage, 
+  ref, 
+  uploadBytes, 
+  getDownloadURL 
+} from 'firebase/storage';
+import { 
+  getAuth, 
+  onAuthStateChanged, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  updateProfile, 
+  sendPasswordResetEmail, 
+  signOut 
+} from 'firebase/auth';
 
 // ------------------------------------------------------------------
 // CONFIGURATION ACTIVE
@@ -21,61 +51,58 @@ const firebaseConfig = {
 };
 
 let app;
-let dbVal;
-let storageVal;
-let authVal;
-let ready = false;
+let db: any;
+let storage: any;
+let auth: any;
+let isFirebaseReady = false;
 
 try {
   app = initializeApp(firebaseConfig);
-  // Use casted namespaces for firestore, storage, and auth to handle ESM imports
-  dbVal = (firebaseFirestore as any).getFirestore(app);
-  storageVal = (firebaseStorage as any).getStorage(app);
-  authVal = (firebaseAuth as any).getAuth(app);
-  ready = true;
+  db = getFirestore(app);
+  storage = getStorage(app);
+  auth = getAuth(app);
+  isFirebaseReady = true;
   console.log("Firebase initialized successfully");
 } catch (e) {
   console.error("Firebase initialization failed:", e);
-  ready = false;
+  isFirebaseReady = false;
 }
 
-export const db = dbVal;
-export const storage = storageVal;
-export const auth = authVal;
-export const isFirebaseReady = ready;
+// Export instances
+export { db, storage, auth, isFirebaseReady };
 
-// Re-export Firestore functions to avoid "as any" casting in components
-export const { 
-    collection, 
-    addDoc, 
-    getDocs, 
-    doc, 
-    setDoc, 
-    deleteDoc, 
-    updateDoc, 
-    onSnapshot, 
-    query, 
-    where, 
-    orderBy, 
-    limit, 
-    serverTimestamp,
-    arrayUnion,
-    arrayRemove
-} = firebaseFirestore as any;
+// Export Firestore functions directly
+export { 
+  collection, 
+  addDoc, 
+  getDocs, 
+  doc, 
+  setDoc, 
+  deleteDoc, 
+  updateDoc, 
+  onSnapshot, 
+  query, 
+  where, 
+  orderBy, 
+  limit, 
+  serverTimestamp, 
+  arrayUnion, 
+  arrayRemove 
+};
 
-// Re-export Storage functions
-export const {
-    ref,
-    uploadBytes,
-    getDownloadURL
-} = firebaseStorage as any;
+// Export Storage functions directly
+export { 
+  ref, 
+  uploadBytes, 
+  getDownloadURL 
+};
 
-// Re-export Auth functions
-export const {
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    updateProfile,
-    sendPasswordResetEmail,
-    signOut
-} = firebaseAuth as any;
+// Export Auth functions directly
+export { 
+  onAuthStateChanged, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  updateProfile, 
+  sendPasswordResetEmail, 
+  signOut 
+};
