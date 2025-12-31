@@ -6,6 +6,13 @@ export const AnnouncementSection: React.FC = () => {
   const events = [
     {
       id: 1,
+      city: "Nicoli",
+      location: "Vijayawada, INA",
+      date: "Dec 30- Feb 30",
+      type: "Cafe booth"
+    }
+    {
+      id: 2,
       city: "Mrikanda",
       location: "Vijayawada, INA",
       date: "Dec 19 - Dec 20",
