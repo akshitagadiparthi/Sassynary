@@ -56,27 +56,25 @@ export const TestimonialsSection: React.FC = () => {
 
   // Fetch Reviews from Firebase
   useEffect(() => {
-    if (isFirebaseReady && db) {
-      const q = query(collection(db, 'reviews'), orderBy('createdAt', 'desc'), limit(10));
-      const unsubscribe = onSnapshot(q, (snapshot: any) => {
-        // Use any to avoid type issues with QuerySnapshot
-        const querySnapshot = snapshot as any;
-        const fetchedReviews: Review[] = querySnapshot.docs.map((doc: any) => ({
-          id: doc.id,
-          ...doc.data()
-        } as Review));
-        
-        // Merge static reviews with new fetched reviews
-        // We keep static ones at the bottom or mix them, here we put new ones first
-        setReviews(prev => {
-            const staticReviews = prev.filter(r => r.isStatic);
-            return [...fetchedReviews, ...staticReviews];
-        });
-      });
+  if (!db) return;
 
-      return () => unsubscribe();
-    }
-  }, []);
+  const q = query(collection(db, 'reviews'), orderBy('createdAt', 'desc'), limit(10));
+  const unsubscribe = onSnapshot(q, (snapshot: any) => {
+    const fetchedReviews = snapshot.docs.map((doc: any) => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    setReviews(prev => {
+      const staticReviews = prev.filter(r => r.isStatic);
+      return [...fetchedReviews, ...staticReviews];
+    });
+  }, (err: any) => {
+    console.error("Reviews listener error:", err);
+  });
+
+  return () => unsubscribe();
+}, [db]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
