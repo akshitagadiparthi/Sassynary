@@ -10,7 +10,7 @@ export const AnnouncementSection: React.FC = () => {
       location: "Vijayawada, INA",
       date: "Dec 30- Feb 30",
       type: "Cafe booth"
-    }
+    },
     {
       id: 2,
       city: "Mrikanda",
