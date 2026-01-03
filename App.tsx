@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { WishlistProvider } from './contexts/WishlistContext';
 import { CartProvider } from './contexts/CartContext';
@@ -314,6 +315,7 @@ function SassynaryContent() {
         onClose={() => setIsAuthModalOpen(false)} 
         initialView={authView}
       />
+      <Analytics />
     </div>
   );
 }
