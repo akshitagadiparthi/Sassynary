@@ -14,7 +14,7 @@ export const PRODUCTS: Product[] = [
     image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1000&auto=format&fit=crop",
     details: [
         "1 x Premium Notebook (Random Style)",
-        "2 x Planner / Notepad (1 small and 1 big size)",
+        "2 x Planner / Notepad (1 small and 1 big)",
         "2 x Witty Greeting Cards",
         "Total Value: ₹400+",
         "Comes in a cute package"
