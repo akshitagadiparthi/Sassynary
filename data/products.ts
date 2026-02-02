@@ -15,7 +15,7 @@ export const PRODUCTS: Product[] = [
     details: [
         "1 x Premium Notebook (Random Style)",
         "2 x Planner / Notepad (1 small and 1 big)",
-        "2 x Witty Greeting Cards",
+        "1 x Witty Greeting Cards",
         "Total Value: ₹400+",
         "Comes in a cute package"
     ],
