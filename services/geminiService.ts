@@ -2,7 +2,7 @@
 import { GoogleGenAI } from "@google/genai";
 import { GeneratorTone } from '../types';
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({ apiKey: process.env.VITE_GEMINI_API_KEY});
 const model = 'gemini-3-flash-preview';
 
 export const generateDailySass = async (): Promise<string> => {
