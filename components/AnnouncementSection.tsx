@@ -8,15 +8,8 @@ export const AnnouncementSection: React.FC = () => {
       id: 1,
       city: "Nicoli",
       location: "Vijayawada, INA",
-      date: "Dec 30- Feb 30",
-      type: "Cafe booth"
-    },
-    {
-      id: 2,
-      city: "Mrikanda",
-      location: "Vijayawada, INA",
-      date: "Dec 19 - Dec 20",
-      type: "New Year Market"
+      date: "Feb 1 - Feb 13",
+      type: "Secret Admirer"
     }
   ];
 

@@ -7,7 +7,6 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { ProductGrid } from './components/ProductGrid';
 import { ProductDetail } from './components/ProductDetail';
-const SassyGenerator = React.lazy(() => import('./components/SassyGenerator').then(module => ({ default: module.SassyGenerator })));
 import { CustomOrderForm } from './components/CustomOrderForm';
 import { AnnouncementSection } from './components/AnnouncementSection';
 import { AboutPage } from './components/AboutPage';
@@ -20,8 +19,10 @@ import { AuthModal } from './components/AuthModal';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { CartDrawer } from './components/CartDrawer';
 import { CheckoutView } from './components/CheckoutView';
+import { ValentinesPopup } from './components/ValentinesPopup';
+import { ReviewModal } from './components/ReviewModal';
 import { Product } from './types';
-import { CheckCircle2, Instagram, ArrowRight } from 'lucide-react';
+import { CheckCircle2, Instagram, ArrowRight, Heart, PenTool } from 'lucide-react';
 
 function SassynaryContent() {
   const [currentView, setCurrentView] = useState<'home' | 'category' | 'product' | 'about' | 'custom-orders' | 'gift-cards' | 'profile' | 'wishlist' | 'checkout' | 'order-success' | 'search'>('home');
@@ -38,11 +39,35 @@ function SassynaryContent() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authView, setAuthView] = useState<'login' | 'register'>('login');
   const [hasPromotedRegister, setHasPromotedRegister] = useState(false);
+  
+  // Valentine's Popup State
+  const [showValentines, setShowValentines] = useState(false);
+
+  // Review Modal State
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+
   const { user, loading } = useAuth();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentView, selectedProduct]);
+
+  // Valentine's Popup Trigger
+  useEffect(() => {
+    // Show popup after 2 seconds on home screen
+    const timer = setTimeout(() => {
+      // Logic to not show if already seen in session could be added here
+      if (!sessionStorage.getItem('seen_vday_popup')) {
+          setShowValentines(true);
+      }
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleCloseValentines = () => {
+    setShowValentines(false);
+    sessionStorage.setItem('seen_vday_popup', 'true');
+  };
 
   // Prompt user to register immediately on entry if not logged in, then every 5 minutes
   useEffect(() => {
@@ -50,21 +75,28 @@ function SassynaryContent() {
 
     // Trigger immediate prompt only once per session
     if (!hasPromotedRegister) {
-        setAuthView('register');
-        setIsAuthModalOpen(true);
-        setHasPromotedRegister(true);
+        // Wait a bit if valentines popup is showing to avoid clutter
+        const delay = showValentines ? 10000 : 5000;
+        const timer = setTimeout(() => {
+            if(!user) {
+                setAuthView('register');
+                setIsAuthModalOpen(true);
+                setHasPromotedRegister(true);
+            }
+        }, delay);
+        return () => clearTimeout(timer);
     }
 
     // Recurring timer (resets if modal is interacted with/closed due to dependency)
     const interval = setInterval(() => {
-      if (!isAuthModalOpen) {
+      if (!isAuthModalOpen && !showValentines) {
         setAuthView('register');
         setIsAuthModalOpen(true);
       }
     }, 5 * 60 * 1000); // 5 minutes
 
     return () => clearInterval(interval);
-  }, [user, loading, isAuthModalOpen, hasPromotedRegister]);
+  }, [user, loading, isAuthModalOpen, hasPromotedRegister, showValentines]);
 
   const handleProductClick = (product: Product) => {
     setSelectedProduct(product);
@@ -133,6 +165,12 @@ function SassynaryContent() {
         setShowNewArrivalsOnly(true);
         setCategoryTitle('New Arrivals');
         setCategorySubtitle('Fresh from the printer.');
+      } else if (id === 'shop-valentines') {
+        setSearchQuery('valentine');
+        setCategoryTitle("Valentine's Collection");
+        setCategorySubtitle("Love notes & sweet things for your favorite person.");
+        setCurrentView('search');
+        return;
       } else if (id === 'shop-notebooks-pinned') {
         category = 'notebooks';
         subCategory = 'pinned';
@@ -185,8 +223,8 @@ function SassynaryContent() {
         return <CheckoutView onBack={() => setCurrentView('home')} onSuccess={handleOrderSuccess} />;
       case 'order-success':
         return (
-          <div className="min-h-screen flex items-center justify-center p-4 bg-[#FAF9F6]">
-              <div className="max-w-md w-full bg-white p-12 text-center shadow-xl border border-gray-100 rounded-2xl animate-fade-in">
+          <div className="min-h-screen flex items-center justify-center p-4 bg-pink-lux">
+              <div className="max-w-md w-full bg-white p-12 text-center shadow-2xl border border-pink-100 rounded-2xl animate-fade-in">
                   <div className="w-20 h-20 bg-pink-50 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-8 border border-pink-100">
                       <CheckCircle2 size={40} />
                   </div>
@@ -201,14 +239,14 @@ function SassynaryContent() {
                       href="https://ig.me/m/sassynary" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="w-full bg-pink-700 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-pink-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-pink-100"
+                      className="w-full bg-pink-700 text-white py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-pink-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-pink-100"
                     >
                       <Instagram size={18} /> Open Instagram DM
                     </a>
                     
                     <button 
                       onClick={() => setCurrentView('home')} 
-                      className="w-full bg-white border border-gray-200 text-gray-400 py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:text-gray-900 transition-all flex items-center justify-center gap-2"
+                      className="w-full bg-white border border-gray-200 text-gray-400 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:text-gray-900 transition-all flex items-center justify-center gap-2"
                     >
                       Return to Shop <ArrowRight size={14} />
                     </button>
@@ -230,8 +268,6 @@ function SassynaryContent() {
               } else if (activeCategory || showNewArrivalsOnly) {
                 setCurrentView('category');
               } else if (selectedProduct) {
-                  // NEW LOGIC: If no active category session (came from home), 
-                  // navigate to the product's specific category view
                   handleNavigate(`shop-${selectedProduct.category}`);
               } else {
                 setCurrentView('home');
@@ -251,8 +287,8 @@ function SassynaryContent() {
         return (
           <ProductGrid 
             searchQuery={searchQuery}
-            title="Search Results" 
-            subtitle="" 
+            title={categoryTitle || "Search Results"} 
+            subtitle={categorySubtitle || ""} 
             viewMode="grid" 
             onProductClick={handleProductClick} 
             showAll={true} 
@@ -283,20 +319,18 @@ function SassynaryContent() {
               viewMode="carousel" 
               onProductClick={handleProductClick} 
               onAuthReq={() => openAuthModal('login')} 
-              limit={10} // Shows only the top 10 reordered mix
+              limit={10} 
             />
-            <TestimonialsSection />
+            {/* Pass Review Modal Trigger */}
+            <TestimonialsSection onWriteReview={() => setIsReviewModalOpen(true)} />
             <AnnouncementSection />
-            <Suspense fallback={<div className="py-24 text-center">Loading AI...</div>}>
-              <SassyGenerator />
-            </Suspense>
           </>
         );
     }
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-pink-lux flex flex-col">
       {currentView !== 'checkout' && currentView !== 'order-success' && (
         <Header onNavigate={handleNavigate} onAuthReq={() => openAuthModal('login')} onSearch={handleSearch} />
       )}
@@ -309,10 +343,46 @@ function SassynaryContent() {
       {currentView !== 'checkout' && currentView !== 'order-success' && (
         <Footer onNavigate={handleNavigate} />
       )}
+      
+      {/* 1. Floating Valentine's Trigger (Left) */}
+      {!showValentines && (
+        <button
+          onClick={() => setShowValentines(true)}
+          className="fixed bottom-6 left-6 z-40 bg-[#D92525] text-white p-4 rounded-full shadow-[0_8px_30px_rgb(217,37,37,0.4)] hover:scale-110 transition-all duration-300 animate-float border-4 border-white"
+          title="Open Valentine's Special"
+        >
+          <Heart size={20} fill="currentColor" />
+        </button>
+      )}
+
+      {/* 2. Floating Add Review Trigger (Right) - "Just like V-Day" */}
+      <button
+        onClick={() => setIsReviewModalOpen(true)}
+        className="fixed bottom-6 right-6 z-40 bg-white text-gray-900 p-4 rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:bg-gray-50 hover:scale-110 transition-all duration-300 border border-gray-100 group"
+        title="Write a Note"
+      >
+        <PenTool size={20} className="group-hover:rotate-12 transition-transform text-pink-600" />
+      </button>
+
+      {/* Modals */}
       <AuthModal 
         isOpen={isAuthModalOpen} 
         onClose={() => setIsAuthModalOpen(false)} 
         initialView={authView}
+      />
+      
+      <ValentinesPopup 
+        isOpen={showValentines} 
+        onClose={handleCloseValentines}
+        onShop={() => {
+            handleCloseValentines();
+            handleNavigate('shop-valentines');
+        }}
+      />
+
+      <ReviewModal 
+        isOpen={isReviewModalOpen}
+        onClose={() => setIsReviewModalOpen(false)}
       />
     </div>
   );

@@ -29,7 +29,7 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onNavigate }
     { 
       id: 'shop-greeting-cards', 
       label: 'Greeting Cards', 
-      image: 'https://i.imgur.com/BrgDOIQ.png',
+      image: 'https://i.imgur.com/0tlVlls.png',
       description: 'Say It Louder' 
     },
   ];

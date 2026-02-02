@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Star, Quote, MapPin, Plus, X, Loader2, CheckCircle2 } from 'lucide-react';
-import { db, isFirebaseReady } from '../services/firebase';
 
-// Firestore imports (namespace style)
-import * as firebaseFirestore from 'firebase/firestore';
-const { collection, addDoc, onSnapshot, query, orderBy, limit } =
-  firebaseFirestore as any;
+import React, { useState, useEffect } from 'react';
+import { Star, Quote, MapPin, PenTool } from 'lucide-react';
+import { db, isFirebaseReady, collection, onSnapshot, query, orderBy, limit } from '../services/firebase';
+import { UnderlineDoodle, StarDoodle } from './Doodles';
 
 interface Review {
   id: string;
@@ -16,11 +13,15 @@ interface Review {
   isStatic?: boolean;
 }
 
-export const TestimonialsSection: React.FC = () => {
+interface TestimonialsSectionProps {
+    onWriteReview?: () => void;
+}
+
+export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ onWriteReview }) => {
   const [reviews, setReviews] = useState<Review[]>([
     {
       id: 'static-1',
-      text: 'Paper quality is top-notch. Fountain pen friendly and super aesthetic!',
+      text: 'The paper quality is actually incredible. My fountain pen glides, and the cover design brings me so much joy daily.',
       author: 'Sravya Reddy',
       location: 'Vijayawada',
       rating: 5,
@@ -28,7 +29,7 @@ export const TestimonialsSection: React.FC = () => {
     },
     {
       id: 'static-2',
-      text: 'Good quality. Delivery to Guntur was super fast.',
+      text: 'Finally, stationery that feels grown-up but still fun. The packaging was so thoughtful, I didn’t want to open it!',
       author: 'Karthik K.',
       location: 'Guntur',
       rating: 5,
@@ -36,219 +37,133 @@ export const TestimonialsSection: React.FC = () => {
     },
     {
       id: 'static-3',
-      text: 'Solid packaging, zero damage. Got the cards to gift for new year!',
+      text: 'Gifted these cards to my best friends and they absolutely loved the wit. Arrived safely in Vizag.',
       author: 'Sneha P.',
       location: 'Vizag',
-      rating: 4,
+      rating: 5,
       isStatic: true,
     },
   ]);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const [formData, setFormData] = useState({
-    name: '',
-    location: '',
-    rating: 5,
-    text: '',
-  });
-
-  // -----------------------------
-  // 🔥 FETCH REVIEWS (READ ONLY)
-  // -----------------------------
   useEffect(() => {
-    if (!db) return;
-
+    if (!isFirebaseReady || !db) return;
     const q = query(
       collection(db, 'reviews'),
       orderBy('createdAt', 'desc'),
-      limit(10)
+      limit(5)
     );
 
-    const unsubscribe = onSnapshot(
-      q,
-      snapshot => {
-        const fetchedReviews = snapshot.docs.map(doc => ({
+    const unsubscribe = onSnapshot(q, (snapshot: any) => {
+        const fetchedReviews = snapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data(),
         }));
 
         setReviews(prev => {
           const staticReviews = prev.filter(r => r.isStatic);
-          return [...fetchedReviews, ...staticReviews];
+          if (fetchedReviews.length > 0) {
+             return [...fetchedReviews, ...staticReviews];
+          }
+          return staticReviews;
         });
       },
-      err => {
-        console.error('🔥 Reviews listener error:', err);
-      }
+      (err: any) => { console.error(err); }
     );
-
     return () => unsubscribe();
-  }, [db]);
+  }, []);
 
-  // -----------------------------
-  // ✍️ SUBMIT REVIEW (WRITE)
-  // -----------------------------
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    if (!formData.name || !formData.text) {
-      alert('Name and review text are required.');
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (isFirebaseReady && db) {
-      const payload = {
-        author: formData.name,
-        location: formData.location,
-        rating: formData.rating,
-        text: formData.text,
-        createdAt: Date.now(), // ✅ RULE-SAFE
-      };
-
-      try {
-        console.log('🟡 Attempting review write:', payload);
-
-        await addDoc(collection(db, 'reviews'), payload);
-
-        console.log('✅ Review write succeeded');
-
-        setFormData({ name: '', location: '', rating: 5, text: '' });
-        setIsModalOpen(false);
-      } catch (error) {
-        console.error('🔥 Error adding review:', payload, error);
-        alert('Could not submit review. Please try again.');
-      }
-    } else {
-      // Fallback (local-only)
-      const newReview: Review = {
-        id: `temp-${Date.now()}`,
-        author: formData.name,
-        location: formData.location,
-        rating: formData.rating,
-        text: formData.text,
-      };
-
-      setReviews(prev => [newReview, ...prev]);
-      setFormData({ name: '', location: '', rating: 5, text: '' });
-      setIsModalOpen(false);
-    }
-
-    setIsSubmitting(false);
-  };
+  const displayedReviews = reviews.slice(0, 3);
 
   return (
-    <section className="py-20 bg-white border-b border-gray-100 overflow-hidden relative">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+    <section className="py-24 bg-dark-foil text-white overflow-hidden relative">
+      {/* Background Noise */}
+      <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/stardust.png")' }}></div>
+
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
           <div className="text-left">
-            <span className="text-pink-600 font-bold tracking-widest text-xs uppercase mb-3 block">
-              Straight From The Customers
+            <span className="font-handwriting text-3xl text-gold-accent rotate-[-2deg] block mb-2 font-bold">
+              The Tea is Hot
             </span>
-            <h2 className="font-serif text-4xl md:text-5xl text-gray-900 mb-4">
-              Reviews With Attitude
-            </h2>
-            <p className="text-gray-500 max-w-lg">
-              Real words from real people who appreciate good paper and bad puns.
+            <div className="relative inline-block mb-4">
+                <h2 className="font-serif text-5xl md:text-6xl text-white leading-tight z-10 relative">
+                Kind Words <br/> <span className="text-transparent bg-clip-text bg-gold-foil">From Real Humans.</span>
+                </h2>
+                <UnderlineDoodle className="absolute -bottom-2 right-0 w-48 text-pink-500 -rotate-2" />
+            </div>
+            <p className="text-gray-400 max-w-lg font-light leading-relaxed text-lg">
+              We promise we didn't pay them. (Okay, maybe we sent stickers.)
             </p>
           </div>
 
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="bg-[#2D2D2D] text-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-pink-700 transition-colors flex items-center gap-2 rounded-sm"
-          >
-            <Plus size={16} />
-            Write A Review
-          </button>
+          {onWriteReview && (
+            <button
+                onClick={onWriteReview}
+                className="hidden md:flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-charcoal bg-gold-foil hover:bg-white transition-all px-8 py-4 rounded-full shadow-[0_0_20px_rgba(255,215,0,0.3)] hover:scale-105 active:scale-95 group"
+            >
+                <span>Spill Your Thoughts</span>
+                <PenTool size={16} className="group-hover:rotate-12 transition-transform" />
+            </button>
+          )}
         </div>
 
-        {/* Reviews */}
-        <div className="flex overflow-x-auto pb-8 -mx-4 px-4 md:grid md:grid-cols-3 gap-6 scrollbar-hide">
-          {reviews.map(review => (
+        {/* Reviews Grid - Cards are rotated for fun */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          {displayedReviews.map((review, i) => (
             <div
               key={review.id}
-              className="min-w-[300px] bg-[#FAF9F6] p-8 rounded-xl relative border border-gray-100 shadow-sm"
+              className={`bg-white text-charcoal p-10 rounded-2xl relative shadow-2xl transition-all duration-300 hover:z-20 hover:scale-105 hover:rotate-0 border-4 border-charcoal ${
+                i % 2 === 0 ? 'rotate-2' : '-rotate-2'
+              }`}
             >
-              <Quote size={40} className="absolute top-6 right-6 text-pink-200" />
+              <div className="absolute -top-6 -left-2 text-7xl font-serif text-pink-200 opacity-80">"</div>
+              
+              {/* Hand Drawn Star Sticker */}
+              <div className="absolute -top-4 -right-4 text-gold-accent rotate-12">
+                 <StarDoodle className="w-12 h-12" />
+              </div>
 
-              <div className="flex gap-1 text-yellow-500 mb-4">
-                {[...Array(5)].map((_, i) => (
+              <div className="flex gap-1 text-gold-accent mb-6">
+                {[...Array(5)].map((_, idx) => (
                   <Star
-                    key={i}
-                    size={14}
-                    fill={i < review.rating ? 'currentColor' : 'none'}
-                    className={i >= review.rating ? 'text-gray-300' : ''}
+                    key={idx}
+                    size={16}
+                    fill={idx < review.rating ? 'currentColor' : 'none'}
+                    className={idx >= review.rating ? 'text-gray-200' : ''}
                   />
                 ))}
               </div>
 
-              <p className="italic text-gray-700 mb-6">"{review.text}"</p>
+              <p className="text-gray-800 mb-8 min-h-[48px] line-clamp-4 font-medium leading-relaxed italic text-lg font-serif">
+                {review.text}
+              </p>
 
-              <div className="border-t pt-4">
-                <p className="font-serif text-lg">{review.author}</p>
-                {review.location && (
-                  <div className="flex items-center gap-1 text-xs text-gray-400">
-                    <MapPin size={10} /> {review.location}
-                  </div>
-                )}
+              <div className="flex items-center justify-between border-t-2 border-dashed border-gray-200 pt-6">
+                <div>
+                    <p className="font-bold text-lg text-charcoal uppercase tracking-wide">{review.author}</p>
+                    {review.location && (
+                    <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-pink-600 mt-1">
+                        <MapPin size={10} /> {review.location}
+                    </div>
+                    )}
+                </div>
               </div>
             </div>
           ))}
         </div>
+        
+        {/* Mobile "Write Review" button */}
+        {onWriteReview && (
+             <div className="mt-16 text-center md:hidden">
+                <button
+                    onClick={onWriteReview}
+                    className="inline-flex items-center gap-2 border-b border-gold-accent pb-1 text-xs font-bold uppercase tracking-widest text-gold-accent"
+                >
+                    Write a Review <PenTool size={14} />
+                </button>
+             </div>
+        )}
       </div>
-
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div
-            className="absolute inset-0 bg-black/60"
-            onClick={() => setIsModalOpen(false)}
-          />
-          <div className="relative bg-white p-8 rounded-lg w-full max-w-lg">
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4"
-            >
-              <X />
-            </button>
-
-            <h3 className="font-serif text-2xl mb-6">Leave a Review</h3>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                required
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={e =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                className="w-full border p-2"
-              />
-
-              <textarea
-                required
-                placeholder="Your Review"
-                value={formData.text}
-                onChange={e =>
-                  setFormData({ ...formData, text: e.target.value })
-                }
-                className="w-full border p-2"
-              />
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-black text-white py-3"
-              >
-                {isSubmitting ? 'Submitting…' : 'Submit Review'}
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
     </section>
   );
 };

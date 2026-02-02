@@ -4,6 +4,7 @@ import { Menu as MenuIcon, X, Search, User, ChevronRight, ChevronDown, Heart, Sh
 import { useWishlist } from '../contexts/WishlistContext';
 import { useCart } from '../contexts/CartContext';
 import { DynamicSassBar } from './DynamicSassBar';
+import { ValentinesBanner } from './ValentinesBanner';
 
 interface HeaderProps {
   onNavigate: (section: string) => void;
@@ -64,7 +65,6 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
     },
     { name: 'Greeting Cards', id: 'shop-greeting-cards' },
     { name: 'Gift Cards', id: 'gift-cards' },
-    { name: 'Sassy AI', id: 'ai-generator' },
     { name: 'Custom Orders', id: 'custom-orders' },
     { name: 'Our Story', id: 'about' },
   ];
@@ -101,7 +101,11 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white border-b border-gray-100">
+      <header className="sticky top-0 z-40 bg-pink-50/90 backdrop-blur-md border-b border-pink-100 transition-all">
+        {/* New Valentine's Banner - High priority */}
+        <ValentinesBanner onShop={() => onNavigate('shop-valentines')} />
+        
+        {/* Existing Sass Bar */}
         <DynamicSassBar />
 
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -109,16 +113,16 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
             
             {isSearchOpen ? (
                 <form onSubmit={handleSearchSubmit} className="flex-1 flex items-center animate-fade-in w-full">
-                    <Search size={20} className="text-gray-400 mr-3 flex-shrink-0" />
+                    <Search size={20} className="text-gray-500 mr-3 flex-shrink-0" />
                     <input 
                         ref={searchInputRef}
                         type="text" 
                         placeholder="Search for cards, notebooks..." 
-                        className="flex-1 bg-transparent border-none focus:ring-0 text-lg placeholder-gray-300 text-gray-900 outline-none"
+                        className="flex-1 bg-transparent border-none focus:ring-0 text-lg placeholder-gray-400 text-gray-900 outline-none"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <button type="button" onClick={() => setIsSearchOpen(false)} className="ml-3 text-gray-400 hover:text-gray-900 flex-shrink-0">
+                    <button type="button" onClick={() => setIsSearchOpen(false)} className="ml-3 text-gray-500 hover:text-gray-900 flex-shrink-0">
                         <X size={24} />
                     </button>
                 </form>
@@ -139,9 +143,9 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
                     onClick={() => onNavigate('hero')}
                     >
                     <img 
-                        src="https://i.imgur.com/NddZbSu.png" 
+                        src="https://i.imgur.com/x374Wwr.png" 
                         alt="Sassynary" 
-                        className="h-10 md:h-14 w-auto object-contain bg-white group-hover:scale-105 transition-transform"
+                        className="h-10 md:h-14 w-auto object-contain group-hover:scale-105 transition-transform mix-blend-multiply"
                     />
                     <span className="font-serif text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">Sassynary</span>
                     </div>
@@ -160,9 +164,9 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
                         className="text-gray-900 hover:text-pink-600 hidden md:block relative group"
                         title="Wishlist"
                     >
-                        <Heart size={20} strokeWidth={1.5} className="group-hover:fill-pink-100" />
+                        <Heart size={20} strokeWidth={1.5} className="group-hover:fill-pink-200 group-hover:text-pink-600 transition-colors" />
                         {wishlist.length > 0 && (
-                            <span className="absolute -top-1.5 -right-1.5 bg-pink-700 text-white text-[9px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
+                            <span className="absolute -top-1.5 -right-1.5 bg-pink-600 text-white text-[9px] font-bold h-4 w-4 rounded-full flex items-center justify-center shadow-sm">
                                 {wishlist.length}
                             </span>
                         )}
@@ -173,9 +177,9 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
                         className="text-gray-900 hover:text-pink-600 relative group"
                         title="Shopping Bag"
                     >
-                        <ShoppingBag size={20} strokeWidth={1.5} className="group-hover:fill-pink-50" />
+                        <ShoppingBag size={20} strokeWidth={1.5} className="group-hover:fill-pink-100 transition-colors" />
                         {cartCount > 0 && (
-                            <span className="absolute -top-1.5 -right-1.5 bg-pink-700 text-white text-[9px] font-bold h-4 w-4 rounded-full flex items-center justify-center animate-fade-in">
+                            <span className="absolute -top-1.5 -right-1.5 bg-pink-600 text-white text-[9px] font-bold h-4 w-4 rounded-full flex items-center justify-center animate-fade-in shadow-sm">
                                 {cartCount}
                             </span>
                         )}
@@ -201,19 +205,19 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
             className="absolute inset-0 bg-black/20 backdrop-blur-sm transition-opacity"
             onClick={() => setIsOpen(false)}
           />
-          <div className="relative w-full max-w-sm bg-white shadow-2xl h-full flex flex-col animate-slide-in-left">
-            <div className="flex justify-between items-center p-6 border-b border-gray-100">
+          <div className="relative w-full max-w-sm bg-pink-50 shadow-2xl h-full flex flex-col animate-slide-in-left border-r border-pink-100">
+            <div className="flex justify-between items-center p-6 border-b border-pink-100">
               <span className="text-sm font-bold uppercase tracking-widest text-gray-500">Navigation</span>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="text-gray-500 hover:text-gray-900 transition-colors p-2 hover:bg-gray-100 rounded-full"
+                className="text-gray-500 hover:text-gray-900 transition-colors p-2 hover:bg-pink-100 rounded-full"
               >
                 <X size={24} />
               </button>
             </div>
             
             {/* Mobile Search Input in Menu */}
-            <div className="px-6 py-4 border-b border-gray-50 md:hidden">
+            <div className="px-6 py-4 border-b border-pink-100 md:hidden">
                 <form onSubmit={(e) => { 
                     handleSearchSubmit(e); 
                     setIsOpen(false); 
@@ -221,11 +225,11 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
                     <input 
                         type="text" 
                         placeholder="Search..." 
-                        className="w-full bg-gray-50 border border-gray-100 rounded-lg py-2 pl-4 pr-10 text-sm focus:border-pink-500 focus:outline-none"
+                        className="w-full bg-white border border-pink-200 rounded-lg py-2 pl-4 pr-10 text-sm focus:border-pink-500 focus:outline-none placeholder-pink-200"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-pink-300">
                         <Search size={16} />
                     </button>
                 </form>
@@ -245,16 +249,16 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
                       {link.subItems ? (
                         expandedItems.includes(link.id) ? 
                           <ChevronDown size={20} className="text-pink-700" /> : 
-                          <ChevronRight size={20} className="text-gray-300 group-hover:text-pink-700 transition-colors" />
+                          <ChevronRight size={20} className="text-pink-300 group-hover:text-pink-700 transition-colors" />
                       ) : (
                         <ChevronRight 
                           size={20} 
-                          className="text-gray-300 group-hover:text-pink-700 group-hover:translate-x-1 transition-all" 
+                          className="text-pink-300 group-hover:text-pink-700 group-hover:translate-x-1 transition-all" 
                         />
                       )}
                     </button>
                     {link.subItems && expandedItems.includes(link.id) && (
-                      <div className="flex flex-col space-y-3 mt-4 ml-4 pl-4 border-l border-gray-100 animate-fade-in">
+                      <div className="flex flex-col space-y-3 mt-4 ml-4 pl-4 border-l-2 border-pink-200 animate-fade-in">
                         {link.subItems.map((subItem) => (
                           <button
                             key={subItem.id}
@@ -276,7 +280,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
                 ))}
                 
                 {/* Mobile Extra Links */}
-                <div className="pt-6 border-t border-gray-100 md:hidden space-y-4">
+                <div className="pt-6 border-t border-pink-100 md:hidden space-y-4">
                     <button onClick={handleWishlistClick} className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-gray-500">
                         <Heart size={18} /> Wishlist
                     </button>

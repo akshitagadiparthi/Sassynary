@@ -78,7 +78,7 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({ onBack, onSuccess })
             <span className="text-xs font-bold uppercase tracking-widest">Back to Bag</span>
           </button>
           <div className="flex items-center gap-3">
-             <img src="https://i.imgur.com/NddZbSu.png" className="h-8 w-auto" alt="Logo" />
+             <img src="https://i.imgur.com/x374Wwr.png" className="h-8 w-auto" alt="Logo" />
              <span className="font-serif text-2xl font-bold">Sassynary</span>
           </div>
           <div className="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-400 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">

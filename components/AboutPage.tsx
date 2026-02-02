@@ -83,7 +83,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, initialSection }) 
           {/* Logo prominently displayed to the left of the text */}
           <div className="lg:col-span-5 flex justify-center items-center p-8 bg-gray-50 rounded-2xl">
             <img
-              src="https://i.imgur.com/NddZbSu.png"
+              src="https://i.imgur.com/x374Wwr.png"
               alt="Sassynary Logo"
               className="w-full h-auto object-contain max-h-[400px] hover:scale-105 transition-transform duration-500"
             />
@@ -179,7 +179,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, initialSection }) 
                 focused on youth mental health in India.
               </p>
               <p className="italic text-sm text-gray-500">
-                "Because stationery is cheaper than therapy."
+                "Creating a grentle space for heavy thoughts"
               </p>
             </div>
           </div>

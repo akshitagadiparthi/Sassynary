@@ -22,19 +22,214 @@ export const PRODUCTS: Product[] = [
     isNew: true,
     tags: ["gift", "bundle", "surprise", "set", "mystery", "value"]
   },
-  // 2. Card: 2026
+
+  // 3. Ace Card
   {
-    id: 113,
-    name: "2026 card",
+    id: 114,
+    name: "Ace Card",
     category: "greeting-cards",
-    price: 10.00,
-    description: "Cheers to the new year together! ",
-    image: "https://i.imgur.com/0gkT9Dn.png",
-    images: ["https://i.imgur.com/0gkT9Dn.png", "https://i.imgur.com/K1Bt8Yt.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"],
-    tags: ["new year", "2026", "holiday", "celebration", "party"]
+    price: 15.00,
+    description: "You're the ace up my sleeve. A winning card for your favorite person.",
+    image: "https://i.imgur.com/pXH7J9D.png",
+    images: ["https://i.imgur.com/pXH7J9D.png","https://i.imgur.com/ASvTsN1.png", "https://i.imgur.com/NpslcQp.png"],
+    details: [
+        "Horizontal Layout", 
+        "Premium Cardstock", 
+        "Local to Vijayawada? Check out Nicoli for physical prints!"
+    ],
+    isNew: true,
+    tags: ["valentine", "ace", "card", "horizontal", "love"]
   },
-  // 3. Notebook: Gotham
+  // 4. Peach
+  {
+    id: 115,
+    name: "Peach Perfect",
+    category: "greeting-cards",
+    price: 15.00,
+    description: "You're a peach! Sweet, fuzzy feelings inside.",
+    image: "https://i.imgur.com/V4X7gMu.png",
+    images: ["https://i.imgur.com/V4X7gMu.png", "https://i.imgur.com/e0urFcQ.png", "https://i.imgur.com/IZCaepR.png"],
+    details: [
+        "Horizontal Layout", 
+        "Premium Cardstock", 
+        "Local to Vijayawada? Check out Nicoli for physical prints!"
+    ],
+    isNew: true,
+    tags: ["valentine", "peach", "cute", "horizontal", "love"]
+  },
+  // 5. Naina
+  {
+    id: 116,
+    name: "Naina",
+    category: "greeting-cards",
+    price: 15.00,
+    description: "Only have eyes for you. A Bollywood-worthy romantic gesture.",
+    image: "https://i.imgur.com/n0UiRKZ.png",
+    images: ["https://i.imgur.com/n0UiRKZ.png", "https://i.imgur.com/mzVkpcB.png", "https://i.imgur.com/Gk5pBpo.png"],
+    details: [
+        "Horizontal Layout", 
+        "Premium Cardstock", 
+        "Local to Vijayawada? Check out Nicoli for physical prints!"
+    ],
+    isNew: true,
+    tags: ["valentine", "eyes", "naina", "horizontal", "love", "bollywood"]
+  },
+  // 6. Little Hearts
+  {
+    id: 117,
+    name: "Little Hearts",
+    category: "greeting-cards",
+    price: 15.00,
+    description: "Sprinkling a little love everywhere.",
+    image: "https://i.imgur.com/lo4gIrw.png",
+    images: ["https://i.imgur.com/lo4gIrw.png", "https://i.imgur.com/q5wjBMC.png", "https://i.imgur.com/FEdIKVN.png"],
+    details: [
+        "Horizontal Layout", 
+        "Premium Cardstock", 
+        "Local to Vijayawada? Check out Nicoli for physical prints!"
+    ],
+    isNew: true,
+    tags: ["valentine", "hearts", "cute", "horizontal", "love"]
+  },
+  // 7. Be Mine?
+  {
+    id: 118,
+    name: "Be Mine?",
+    category: "greeting-cards",
+    price: 15.00,
+    description: "The classic question, asked in style.",
+    image: "https://i.imgur.com/7l0YeFa.png",
+    images: ["https://i.imgur.com/7l0YeFa.png", "https://i.imgur.com/pAuASl1.png", "https://i.imgur.com/gH5mP3u.png"],
+    details: [
+        "Horizontal Layout", 
+        "Premium Cardstock", 
+        "Local to Vijayawada? Check out Nicoli for physical prints!"
+    ],
+    isNew: true,
+    tags: ["valentine", "proposal", "cute", "horizontal", "love"]
+  },
+  // 8. Punchu
+  {
+    id: 119,
+    name: "Punchu",
+    category: "greeting-cards",
+    price: 15.00,
+    description: "Packing a punch of love.",
+    image: "https://i.imgur.com/jKTDywy.png",
+    images: ["https://i.imgur.com/jKTDywy.png", "https://i.imgur.com/nSvHk7T.png", "https://i.imgur.com/K4ZWPg7.png"],
+    details: [
+        "Horizontal Layout", 
+        "Premium Cardstock", 
+        "Local to Vijayawada? Check out Nicoli for physical prints!"
+    ],
+    isNew: true,
+    tags: ["valentine", "dialogue", "funny", "horizontal", "love"]
+  },
+  // 9. Fun
+  {
+    id: 120,
+    name: "Just For Fun",
+    category: "greeting-cards",
+    price: 15.00,
+    description: "Love doesn't have to be serious all the time.",
+    image: "https://i.imgur.com/HNNbGm9.png",
+    images: ["https://i.imgur.com/HNNbGm9.png", "https://i.imgur.com/djCG6Vn.png", "https://i.imgur.com/g4fRxRm.png"],
+    details: [
+        "Horizontal Layout", 
+        "Premium Cardstock", 
+        "Local to Vijayawada? Check out Nicoli for physical prints!"
+    ],
+    isNew: true,
+    tags: ["valentine", "fun", "quirky", "horizontal", "love"]
+  },
+  // 10. F1 Love
+  {
+    id: 121,
+    name: "F1 Love",
+    category: "greeting-cards",
+    price: 15.00,
+    description: "My heart races for you faster than a pit stop.",
+    image: "https://i.imgur.com/yvSuWse.png",
+    images: ["https://i.imgur.com/yvSuWse.png", "https://i.imgur.com/HPIfMLk.png", "https://i.imgur.com/QBHI1c0.png"],
+    details: [
+        "Horizontal Layout", 
+        "Premium Cardstock", 
+        "Local to Vijayawada? Check out Nicoli for physical prints!"
+    ],
+    isNew: true,
+    tags: ["valentine", "f1", "racing", "horizontal", "love", "cars"]
+  },
+  // 11. Bommarillu
+  {
+    id: 122,
+    name: "Bommarillu",
+    category: "greeting-cards",
+    price: 15.00,
+    description: "A love as iconic as the movie. (Hasthiri!)",
+    image: "https://i.imgur.com/Y4ibTyc.png",
+    images: ["https://i.imgur.com/Y4ibTyc.png", "https://i.imgur.com/d6LHL7a.png", "https://i.imgur.com/5a8VihN.png"],
+    details: [
+        "Horizontal Layout", 
+        "Premium Cardstock", 
+        "Local to Vijayawada? Check out Nicoli for physical prints!"
+    ],
+    isNew: true,
+    tags: ["valentine", "movie", "telugu", "horizontal", "love", "iconic"]
+  },
+  // 12. Oldies
+  {
+    id: 123,
+    name: "Grow Old With You",
+    category: "greeting-cards",
+    price: 15.00,
+    description: "I wanna make you smile whenever you're sad. The ultimate promise.",
+    image: "https://i.imgur.com/cBSMuMF.png",
+    images: ["https://i.imgur.com/cBSMuMF.png", "https://i.imgur.com/iH87VOR.png", "https://i.imgur.com/zSeQ42x.png"],
+    details: [
+        "Horizontal Layout",
+        "Premium Cardstock",
+        "Local to Vijayawada? Check out Nicoli for physical prints!"
+    ],
+    isNew: true,
+    tags: ["valentine", "old", "cute", "horizontal", "love", "couple"]
+  },
+
+  // 14. Pranam
+  {
+    id: 125,
+    name: "Pranam",
+    category: "greeting-cards",
+    price: 15.00,
+    description: "Respectfully obsessed with you.",
+    image: "https://i.imgur.com/roTGUHg.png",
+    images: ["https://i.imgur.com/roTGUHg.png", "https://i.imgur.com/MejKGLs.png", "https://i.imgur.com/6WaVYwP.png"],
+    details: [
+        "Horizontal Layout",
+        "Premium Cardstock",
+        "Local to Vijayawada? Check out Nicoli for physical prints!"
+    ],
+    isNew: true,
+    tags: ["valentine", "pranam", "funny", "horizontal", "love", "indian"]
+  },
+ 
+  // 16. Galentines
+  {
+    id: 127,
+    name: "Galentines",
+    category: "greeting-cards",
+    price: 15.00,
+    description: "Hoes before bros. Always.",
+    image: "https://i.imgur.com/w29UCpk.png",
+    images: ["https://i.imgur.com/w29UCpk.png", "https://i.imgur.com/nPvTy0N.png", "https://i.imgur.com/xMNuZra.png"],
+    details: [
+        "Horizontal Layout",
+        "Premium Cardstock",
+        "Local to Vijayawada? Check out Nicoli for physical prints!"
+    ],
+    isNew: true,
+    tags: ["valentine", "galentine", "friends", "horizontal", "girls", "bestie"]
+  },
+
   {
     id: 33,
     name: "Gotham Log",
@@ -58,7 +253,7 @@ export const PRODUCTS: Product[] = [
     isNew: true,
     tags: ["black", "dark", "hero", "minimal", "men", "pinned", "journal", "ruled", "lined"]
   },
-  // 4. Planner: Weekly
+  // 18. Planner: Weekly
   {
     id: 31,
     name: "Weekly Planner",
@@ -81,19 +276,8 @@ export const PRODUCTS: Product[] = [
     isNew: true,
     tags: ["weekly", "organizer", "schedule", "productivity", "undated", "planner"]
   },
-  // 5. Card: New Year!!
-  {
-    id: 102,
-    name: "New Year!!",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "Wish your near and dear a happy 2026",
-    image: "https://i.imgur.com/2J5EqGI.png",
-    images: ["https://i.imgur.com/2J5EqGI.png", "https://i.imgur.com/WTOXmM4.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"],
-    tags: ["new year", "2026", "holiday", "celebration", "family"]
-  },
-  // 6. Notebook: Crimson
+  
+  // 19. Notebook: Crimson
   {
     id: 29,
     name: "Crimson Notes",
@@ -118,7 +302,7 @@ export const PRODUCTS: Product[] = [
     isNew: true,
     tags: ["red", "spiral", "wirebound", "bold", "journal", "lined", "ruled"]
   },
-  // 7. Planner: Daily Grid
+  // 20. Planner: Daily Grid
   {
     id: 32,
     name: "Daily Journal Grid",
@@ -143,19 +327,8 @@ export const PRODUCTS: Product[] = [
     isNew: true,
     tags: ["daily", "grid", "dot grid", "journal", "structured", "planner", "dotted"]
   },
-  // 8. Card: Dark Theme
-  {
-    id: 101,
-    name: "Happy New Year- Dark theme",
-    category: "greeting-cards",
-    price: 10.00,
-    description: "You make my heart skip a beat. Literally. Please stop.",
-    image: "https://i.imgur.com/BrgDOIQ.png",
-    images: ["https://i.imgur.com/BrgDOIQ.png", "https://i.imgur.com/eahMott.png"],
-    details: ["Premium 300gsm Cardstock", "A6 size"],
-    tags: ["new year", "dark", "funny", "sarcastic", "2026", "black"]
-  },
-  // 9. Notebook: Celestial
+
+  // 22. Notebook: Celestial
   {
     id: 30,
     name: "Celestial Book",
@@ -178,7 +351,7 @@ export const PRODUCTS: Product[] = [
     isNew: true,
     tags: ["space", "stars", "blue", "cosmic", "pinned", "journal", "ruled", "lined"]
   },
-  // 10. Notebook: Clean Slate
+  // 23. Notebook: Clean Slate
   {
     id: 28,
     name: "Clean Slate",

@@ -1,3 +1,4 @@
+
 # Sassynary | fun stationery
 
 A bold and witty stationery shop built with React, Tailwind CSS, and the Google Gemini API.
@@ -9,8 +10,8 @@ A bold and witty stationery shop built with React, Tailwind CSS, and the Google 
 - **Deployment Ready**: Optimized for Cloudflare Pages and Vercel.
 
 ## Tech Stack
-- **Frontend**: React 19, Tailwind CSS, Lucide Icons
-- **Backend**: Firebase (Auth, Firestore, Storage)
+- **Frontend**: React 18, Tailwind CSS, Lucide Icons
+- **Backend**: Firebase (Auth, Firestore, Storage) - *Configured in `services/firebase.ts`*
 - **AI**: @google/genai (Gemini API)
 
 ## Setup
@@ -19,6 +20,18 @@ A bold and witty stationery shop built with React, Tailwind CSS, and the Google 
 3. Create a `.env` file and add your `API_KEY` (Gemini API).
 4. Run locally: `npm run dev`
 
-## Deployment
-- **Cloudflare Pages**: Connect your GitHub repository and set the build command to `npm run build` with the output directory set to `dist`.
-- **Environment Variables**: Ensure the `API_KEY` is added in your deployment dashboard's environment settings.
+## Deployment (Vercel)
+1. Push this code to a GitHub repository.
+2. Log in to [Vercel](https://vercel.com) and "Add New Project".
+3. Select your GitHub repository.
+4. Vercel will auto-detect Vite. The Build Command (`vite build`) and Output Directory (`dist`) should be correct.
+5. **Important:** In the **Environment Variables** section, add:
+   - Name: `API_KEY`
+   - Value: *Your Google Gemini API Key*
+6. Click **Deploy**.
+
+## Deployment (Cloudflare Pages)
+- Connect your GitHub repository.
+- Build command: `npm run build`
+- Output directory: `dist`
+- Add the `API_KEY` in Settings > Environment Variables.

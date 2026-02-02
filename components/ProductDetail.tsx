@@ -25,7 +25,7 @@ const GalleryThumbnail: React.FC<{ src: string, alt: string, isActive: boolean, 
       onClick={onClick}
       className={`aspect-[4/5] bg-gray-50 overflow-hidden border-2 transition-all rounded-sm ${isActive ? 'border-pink-700 opacity-100 scale-105' : 'border-transparent opacity-70 hover:opacity-100'}`}
     >
-      <img src={displaySrc} alt={alt} onError={() => setHasError(true)} className="w-full h-full object-cover" />
+      <img src={displaySrc} alt={alt} onError={() => setHasError(true)} className="w-full h-full object-contain p-1" />
     </button>
   );
 };

@@ -14,7 +14,7 @@ const CartItemImage = ({ src, alt }: { src: string, alt: string }) => {
           src={displaySrc} 
           alt={alt} 
           onError={() => setHasError(true)}
-          className="w-full h-full object-contain p-1"
+          className="w-full h-full object-contain p-2"
       />
     </div>
   );
