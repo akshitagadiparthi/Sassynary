@@ -179,7 +179,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, initialSection }) 
                 focused on youth mental health in India.
               </p>
               <p className="italic text-sm text-gray-500">
-                "Creating a grentle space for heavy thoughts"
+                "Creating a gentle space for heavy thoughts"
               </p>
             </div>
           </div>
