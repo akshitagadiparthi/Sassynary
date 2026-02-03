@@ -43,27 +43,38 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({ onBack, onSuccess })
     };
 
     try {
+      // 1. Fire and forget Firestore save to prevent blocking the UI/Popup
       if (isFirebaseReady && db) {
-        // Ensure writing to 'orders' collection
-        await addDoc(collection(db, 'orders'), orderData);
+        addDoc(collection(db, 'orders'), orderData).catch(err => console.error("Firestore background save failed:", err));
       }
       
-      // Generate Order Summary for Clipboard/DM
+      // 2. Generate Order Summary
       const itemSummary = cart.map(item => `• ${item.product.name} (x${item.quantity}) - ₹${(item.product.price * item.quantity).toFixed(2)}`).join('\n');
       const message = `Hi Sassynary! 🎀\n\nI just placed an order on your website!\n\nOrder ID: ${orderId}\n\nITEMS:\n${itemSummary}\n\nTOTAL: ₹${cartTotal.toFixed(2)}\n\nSHIPPING TO:\n${formData.firstName} ${formData.lastName}\n${formData.address}, ${formData.city} - ${formData.zip}\nPhone: ${formData.phone}\n\nPlease let me know how to proceed with payment! ✨`;
       
-      await navigator.clipboard.writeText(message);
+      // 3. Copy to clipboard (Best effort)
+      try {
+        await navigator.clipboard.writeText(message);
+      } catch (clipErr) {
+        console.warn("Clipboard failed", clipErr);
+      }
       
-      // Simulation delay for feel
-      await new Promise(r => setTimeout(r, 1500));
+      // 4. Open Instagram - IMMEDIATE ACTION required for mobile browsers
+      const igUrl = 'https://ig.me/m/sassynary';
+      const windowRef = window.open(igUrl, '_blank');
       
-      window.open('https://ig.me/m/sassynary', '_blank');
+      // Fallback if popup blocked
+      if (!windowRef || windowRef.closed || typeof windowRef.closed === 'undefined') {
+          // We don't force redirect here to avoid losing context, 
+          // the Success Screen has a big button they can click manually.
+          console.warn("Popup blocked");
+      }
       
       clearCart();
       onSuccess(orderId);
     } catch (err) {
       console.error("Order processing error:", err);
-      alert("Something went wrong. Let's try again!");
+      alert("Something went wrong. Please try clicking the button again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -100,32 +111,32 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({ onBack, onSuccess })
 
               <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-1">First Name</label>
-                    <input required type="text" value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} className="w-full bg-gray-50/50 border border-gray-100 p-4 rounded-lg focus:border-pink-600 focus:bg-white outline-none text-sm transition-all" placeholder="Jane" />
+                    <label className="text-xs font-bold uppercase tracking-widest text-gray-700 ml-1">First Name</label>
+                    <input required type="text" value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} className="w-full bg-white border border-gray-300 p-4 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-600 outline-none text-sm text-gray-900 placeholder-gray-400 transition-all" placeholder="Jane" />
                  </div>
                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-1">Last Name</label>
-                    <input required type="text" value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} className="w-full bg-gray-50/50 border border-gray-100 p-4 rounded-lg focus:border-pink-600 focus:bg-white outline-none text-sm transition-all" placeholder="Doe" />
+                    <label className="text-xs font-bold uppercase tracking-widest text-gray-700 ml-1">Last Name</label>
+                    <input required type="text" value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} className="w-full bg-white border border-gray-300 p-4 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-600 outline-none text-sm text-gray-900 placeholder-gray-400 transition-all" placeholder="Doe" />
                  </div>
                  <div className="col-span-2 space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-1">Full Address</label>
-                    <input required type="text" value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} placeholder="House no, Street name, Landmark" className="w-full bg-gray-50/50 border border-gray-100 p-4 rounded-lg focus:border-pink-600 focus:bg-white outline-none text-sm transition-all" />
+                    <label className="text-xs font-bold uppercase tracking-widest text-gray-700 ml-1">Full Address</label>
+                    <input required type="text" value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} placeholder="House no, Street name, Landmark" className="w-full bg-white border border-gray-300 p-4 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-600 outline-none text-sm text-gray-900 placeholder-gray-400 transition-all" />
                  </div>
                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-1">City</label>
-                    <input required type="text" value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} className="w-full bg-gray-50/50 border border-gray-100 p-4 rounded-lg focus:border-pink-600 focus:bg-white outline-none text-sm transition-all" placeholder="e.g. Vijayawada" />
+                    <label className="text-xs font-bold uppercase tracking-widest text-gray-700 ml-1">City</label>
+                    <input required type="text" value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} className="w-full bg-white border border-gray-300 p-4 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-600 outline-none text-sm text-gray-900 placeholder-gray-400 transition-all" placeholder="e.g. Vijayawada" />
                  </div>
                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-1">Pincode</label>
-                    <input required type="text" value={formData.zip} onChange={e => setFormData({...formData, zip: e.target.value})} className="w-full bg-gray-50/50 border border-gray-100 p-4 rounded-lg focus:border-pink-600 focus:bg-white outline-none text-sm transition-all" placeholder="520001" />
+                    <label className="text-xs font-bold uppercase tracking-widest text-gray-700 ml-1">Pincode</label>
+                    <input required type="text" value={formData.zip} onChange={e => setFormData({...formData, zip: e.target.value})} className="w-full bg-white border border-gray-300 p-4 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-600 outline-none text-sm text-gray-900 placeholder-gray-400 transition-all" placeholder="520001" />
                  </div>
                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-1">Email Address</label>
-                    <input required type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-gray-50/50 border border-gray-100 p-4 rounded-lg focus:border-pink-600 focus:bg-white outline-none text-sm transition-all" placeholder="jane@example.com" />
+                    <label className="text-xs font-bold uppercase tracking-widest text-gray-700 ml-1">Email Address</label>
+                    <input required type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-white border border-gray-300 p-4 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-600 outline-none text-sm text-gray-900 placeholder-gray-400 transition-all" placeholder="jane@example.com" />
                  </div>
                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-1">Mobile Number</label>
-                    <input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full bg-gray-50/50 border border-gray-100 p-4 rounded-lg focus:border-pink-600 focus:bg-white outline-none text-sm transition-all" placeholder="+91 00000 00000" />
+                    <label className="text-xs font-bold uppercase tracking-widest text-gray-700 ml-1">Mobile Number</label>
+                    <input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full bg-white border border-gray-300 p-4 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-600 outline-none text-sm text-gray-900 placeholder-gray-400 transition-all" placeholder="+91 00000 00000" />
                  </div>
 
                  <div className="col-span-2 pt-6">
@@ -147,7 +158,7 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({ onBack, onSuccess })
                         className="w-full bg-pink-700 text-white py-5 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-pink-800 transition-all flex items-center justify-center gap-3 shadow-lg shadow-pink-100 active:scale-[0.98]"
                     >
                         {isSubmitting ? (
-                            <> <Loader2 size={18} className="animate-spin" /> Finalizing... </>
+                            <> <Loader2 size={18} className="animate-spin" /> Processing... </>
                         ) : (
                             <> Confirm Order & DM on Instagram <Send size={18} /> </>
                         )}
