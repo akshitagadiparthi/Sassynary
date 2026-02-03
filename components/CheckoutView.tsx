@@ -109,7 +109,8 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({ onBack, onSuccess })
                 <p className="text-sm text-gray-500 font-light">Enter your info below. After confirming, you'll message us on Instagram to complete your order.</p>
               </div>
 
-              <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+              {/* UPDATED GRID CONFIGURATION: Single column by default, 2 columns only on large screens */}
+              <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6">
                  <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-widest text-gray-700 ml-1">First Name</label>
                     <input required type="text" value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} className="w-full bg-white border border-gray-300 p-4 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-600 outline-none text-sm text-gray-900 placeholder-gray-400 transition-all" placeholder="Jane" />
@@ -118,7 +119,7 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({ onBack, onSuccess })
                     <label className="text-xs font-bold uppercase tracking-widest text-gray-700 ml-1">Last Name</label>
                     <input required type="text" value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} className="w-full bg-white border border-gray-300 p-4 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-600 outline-none text-sm text-gray-900 placeholder-gray-400 transition-all" placeholder="Doe" />
                  </div>
-                 <div className="col-span-2 space-y-2">
+                 <div className="col-span-1 lg:col-span-2 space-y-2">
                     <label className="text-xs font-bold uppercase tracking-widest text-gray-700 ml-1">Full Address</label>
                     <input required type="text" value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} placeholder="House no, Street name, Landmark" className="w-full bg-white border border-gray-300 p-4 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-600 outline-none text-sm text-gray-900 placeholder-gray-400 transition-all" />
                  </div>
@@ -139,7 +140,7 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({ onBack, onSuccess })
                     <input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full bg-white border border-gray-300 p-4 rounded-lg focus:border-pink-600 focus:ring-1 focus:ring-pink-600 outline-none text-sm text-gray-900 placeholder-gray-400 transition-all" placeholder="+91 00000 00000" />
                  </div>
 
-                 <div className="col-span-2 pt-6">
+                 <div className="col-span-1 lg:col-span-2 pt-6">
                     <div className="bg-pink-50 p-6 rounded-xl border border-pink-100 mb-8 flex items-start gap-4">
                         <div className="p-2 bg-pink-100 rounded-lg text-pink-700">
                             <Instagram size={20} />
