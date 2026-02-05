@@ -7,7 +7,7 @@ export const PRODUCTS: Product[] = [
   // 1. Mystery Box
   {
     id: 99,
-    name: "Surprise Me! Mystery Box",
+    name: "Surprise Me! bundle",
     category: "accessories",
     price: 300.00,
     description: "Can't decide? Let us pick. A curated bundle of our best sass for a steal. Perfect for gifting or hoarding.",
