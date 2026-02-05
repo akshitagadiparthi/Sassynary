@@ -7,7 +7,7 @@ export const PRODUCTS: Product[] = [
   // 1. Mystery Box
   {
     id: 99,
-    name: "Surprise Me! bundle",
+    name: "Surprise Me! v- day bundle",
     category: "accessories",
     price: 300.00,
     description: "Can't decide? Let us pick. A curated bundle of our best sass for a steal. Perfect for gifting or hoarding.",
@@ -16,11 +16,11 @@ export const PRODUCTS: Product[] = [
         "1 x Premium Notebook (Random Style)",
         "2 x Planner / Notepad (1 small and 1 big)",
         "1 x Witty Greeting Cards",
-        "Total Value: ₹400+",
+        "Total Value: ₹400",
         "Comes in a cute package"
     ],
     isNew: true,
-    tags: ["gift", "bundle", "surprise", "set", "mystery", "value"]
+    tags: ["valentine", "bundle", "surprise", "set", "mystery", "value"]
   },
 
   // 3. Ace Card
