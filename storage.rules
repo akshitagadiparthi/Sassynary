@@ -1,0 +1,41 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// FIREBASE STORAGE SECURITY RULES FOR SASSYNARY
+// ═══════════════════════════════════════════════════════════════════════════════
+// HOW TO DEPLOY:
+//   1. Go to Firebase Console → https://console.firebase.google.com
+//   2. Select project "sassynary-35159"
+//   3. Click Storage → Rules tab
+//   4. Replace everything with this file's content
+//   5. Click "Publish"
+// ═══════════════════════════════════════════════════════════════════════════════
+
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // ─── CUSTOM ORDER REFERENCE IMAGES ───────────────────────────────────
+    // Allow uploads: images only, max 5MB
+    // Allow reads: so the download URL works
+    // No deletes from client
+    match /custom-orders/{filename} {
+      allow read: if true;
+
+      allow write: if request.resource != null
+                   && request.resource.size < 5 * 1024 * 1024          // Max 5MB
+                   && request.resource.contentType.matches('image/.*')  // Images only
+                   && (
+                     request.resource.contentType == 'image/jpeg' ||
+                     request.resource.contentType == 'image/png' ||
+                     request.resource.contentType == 'image/webp' ||
+                     request.resource.contentType == 'image/gif'
+                   );
+
+      allow delete: if false;
+    }
+
+    // ─── DENY EVERYTHING ELSE ────────────────────────────────────────────
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

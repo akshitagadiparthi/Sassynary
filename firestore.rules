@@ -1,0 +1,118 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// FIRESTORE SECURITY RULES FOR SASSYNARY
+// ═══════════════════════════════════════════════════════════════════════════════
+// HOW TO DEPLOY:
+//   1. Go to Firebase Console → https://console.firebase.google.com
+//   2. Select project "sassynary-35159"
+//   3. Click Firestore Database → Rules tab
+//   4. Replace everything with this file's content
+//   5. Click "Publish"
+// ═══════════════════════════════════════════════════════════════════════════════
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── HELPER FUNCTIONS ──────────────────────────────────────────────────
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Limit string field length to prevent abuse
+    function isValidString(field, maxLen) {
+      return field is string && field.size() <= maxLen;
+    }
+
+    // ─── ORDERS ────────────────────────────────────────────────────────────
+    // Anyone authenticated can CREATE an order (for themselves).
+    // Only the order owner can READ their own orders.
+    // Nobody can UPDATE or DELETE orders from the client.
+    match /orders/{orderId} {
+      allow create: if isAuthenticated()
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.keys().hasAll(['orderId', 'userId', 'items', 'total', 'shipping', 'status'])
+                    && request.resource.data.total is number
+                    && request.resource.data.total > 0
+                    && request.resource.data.items is list
+                    && request.resource.data.items.size() > 0
+                    && request.resource.data.items.size() <= 50;
+
+      allow read: if isAuthenticated()
+                  && resource.data.userId == request.auth.uid;
+
+      allow update, delete: if false;
+    }
+
+    // Allow guest orders (userId == 'guest') — create only, no read
+    // If you want to allow guest checkout, uncomment this block:
+    // match /guest_orders/{orderId} {
+    //   allow create: if true
+    //                 && request.resource.data.keys().hasAll(['orderId', 'items', 'total', 'shipping'])
+    //                 && request.resource.data.total is number
+    //                 && request.resource.data.items is list
+    //                 && request.resource.data.items.size() > 0;
+    //   allow read, update, delete: if false;
+    // }
+
+    // ─── REVIEWS ───────────────────────────────────────────────────────────
+    // Anyone can READ reviews (they're displayed publicly).
+    // Authenticated users can CREATE reviews (with validation).
+    // No updates or deletes from client — use Admin SDK or Console.
+    match /reviews/{reviewId} {
+      allow read: if true;
+
+      allow create: if isAuthenticated()
+                    && request.resource.data.keys().hasAll(['author', 'text', 'rating'])
+                    && isValidString(request.resource.data.author, 100)
+                    && isValidString(request.resource.data.text, 1000)
+                    && request.resource.data.rating is int
+                    && request.resource.data.rating >= 1
+                    && request.resource.data.rating <= 5;
+
+      allow update, delete: if false;
+    }
+
+    // ─── CUSTOM ORDERS ─────────────────────────────────────────────────────
+    // Anyone can CREATE a custom order inquiry (form submission).
+    // No read/update/delete from client.
+    match /custom_orders/{orderId} {
+      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'type', 'message', 'status'])
+                    && isValidString(request.resource.data.name, 100)
+                    && isValidString(request.resource.data.email, 100)
+                    && isValidString(request.resource.data.message, 2000)
+                    && request.resource.data.status == 'new';
+
+      allow read, update, delete: if false;
+    }
+
+    // ─── USER PROFILES & ADDRESSES ─────────────────────────────────────────
+    // Users can only read/write their OWN data.
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      match /addresses/{addressId} {
+        allow read: if isOwner(userId);
+        
+        allow create: if isOwner(userId)
+                      && request.resource.data.keys().hasAll(['label', 'fullName', 'phone', 'street', 'city', 'pincode'])
+                      && isValidString(request.resource.data.fullName, 100)
+                      && isValidString(request.resource.data.street, 300)
+                      && isValidString(request.resource.data.city, 100)
+                      && isValidString(request.resource.data.pincode, 10);
+        
+        allow delete: if isOwner(userId);
+        
+        allow update: if false; // Addresses are add/remove only
+      }
+    }
+
+    // ─── DENY EVERYTHING ELSE ──────────────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
