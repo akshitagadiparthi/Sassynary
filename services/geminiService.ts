@@ -20,17 +20,21 @@ export const generateDailySass = async (): Promise<string> => {
 
 export const recommendProductByVibe = async (vibe: string): Promise<{productId: number, reason: string}> => {
   try {
+     // Sanitize user input to prevent prompt injection
+     const sanitizedVibe = vibe.slice(0, 100).replace(/["'\n\r]/g, '');
+     
      const prompt = `
-      I have a list of stationery products ids: [1, 16, 17, 24, 27, 19, 25, 26, 18, 20, 21, 22, 23, 34, 99].
+      I have a list of stationery products ids: [1, 16, 17, 24, 27, 19, 25, 26, 18, 20, 21, 22, 23, 34, 128, 129, 130, 131].
       
       Product Context:
-      - ID 99 is the "Surprise Me Bundle" (Mystery Box). It explicitly contains Witty Greeting Cards.
-      - If the user mentions "cards", "greeting card", "indecisive", or "surprise", YOU MUST SUGGEST ID 99.
+      - IDs 128-131 are premium "Hard-Bound Notebooks". Suggest these for professional, luxury-focused, or premium vibes.
+      - IDs 1, 16, 17, 24, 27 are spiral notebooks with various themes.
+      - Other IDs are planners and various notebook styles.
       
-      User vibe: "${vibe}".
+      User vibe: "${sanitizedVibe}".
       
       Return a JSON object with "productId" (number from list) and "reason" (short witty sentence).
-      JSON only.
+      JSON only. Do not include any code or explanations, just the JSON object.
     `;
     const response = await ai.models.generateContent({
       model,
