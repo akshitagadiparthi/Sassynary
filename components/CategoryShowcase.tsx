@@ -21,6 +21,12 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onNavigate }
       description: 'Lay-flat Elegance'
     },
     { 
+      id: 'shop-hard-bound', 
+      label: 'Hard-Bound Notebooks', 
+      image: 'https://i.imgur.com/pmKOqCH.png',
+      description: 'Premium & Durable'
+    },
+    { 
       id: 'shop-planners', 
       label: 'Planners', 
       image: 'https://i.imgur.com/Hxia7Ec.png',
@@ -42,7 +48,7 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onNavigate }
             <h2 className="font-serif text-4xl md:text-5xl text-gray-900">Browse Categories</h2>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
           {categories.map((cat) => (
             <CategoryCard key={cat.id} cat={cat} onNavigate={onNavigate} />
           ))}

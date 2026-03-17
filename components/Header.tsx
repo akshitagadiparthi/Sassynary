@@ -52,6 +52,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
       subItems: [
         { name: 'Spiral Notebooks', id: 'shop-notebooks-spiral' },
         { name: 'Pinned Notebooks', id: 'shop-notebooks-pinned' },
+        { name: 'Hard-Bound Notebooks', id: 'shop-hard-bound' },
       ]
     },
     { 

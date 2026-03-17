@@ -2,6 +2,7 @@
  * Optimizes images by using Imgur's native thumbnail suffixes when possible.
  * This bypasses third-party proxies for Imgur links, resulting in much faster load times.
  * Now enforces WebP format for modern browser performance.
+ * Includes progressive image loading & blur-up support for slow networks.
  * 
  * Imgur Suffixes:
  * s = Small Square (90x90) - Good for blur placeholders
@@ -10,6 +11,29 @@
  * l = Large Thumbnail (640x640)
  * h = Huge Thumbnail (1024x1024)
  */
+
+// Get a tiny blurred placeholder for progressive loading
+export const getBlurPlaceholder = (url: string): string => {
+  if (!url) return '';
+  
+  if (url.includes('imgur.com')) {
+    try {
+      const cleanUrl = url.split('?')[0];
+      // Use small square (90px) as blur placeholder
+      return cleanUrl.replace(/(https?:\/\/i\.imgur\.com\/[a-zA-Z0-9]+)(\.?\w*)/, `$1s.webp`);
+    } catch (e) {
+      return url;
+    }
+  }
+  
+  if (url.includes('images.unsplash.com')) {
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}w=20&q=20&fm=webp&blur=10`;
+  }
+  
+  return url;
+};
+
 export const getOptimizedImageUrl = (url: string, width: number = 800) => {
   if (!url) return '';
   

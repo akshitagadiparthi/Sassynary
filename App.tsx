@@ -153,6 +153,10 @@ function SassynaryContent() {
         subCategory = 'spiral';
         setCategoryTitle('Spiral Notebooks');
         setCategorySubtitle('Perfect for quick notes and sketches.');
+      } else if (id === 'shop-hard-bound') {
+        category = 'hard-bound';
+        setCategoryTitle('Hard-Bound Notebooks');
+        setCategorySubtitle('Premium, durable notebooks for your most important thoughts.');
       } else if (id === 'shop-planners-small') {
         category = 'planners';
         subCategory = 'small';
