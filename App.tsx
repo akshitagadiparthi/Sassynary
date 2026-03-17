@@ -8,13 +8,6 @@ import { Hero } from './components/Hero';
 import { ProductGrid } from './components/ProductGrid';
 import { ProductDetail } from './components/ProductDetail';
 import { CustomOrderForm } from './components/CustomOrderForm';
-import { AnnouncementSection } from './components/AnnouncementSection';
-import { AboutPage } from './components/AboutPage';
-import { GiftCardPage } from './components/GiftCardPage';
-import { Footer } from './components/Footer';
-import { CategoryShowcase } from './components/CategoryShowcase';
-import { UserProfile } from './components/UserProfile';
-import { WishlistPage } from './components/WishlistPage';
 import { AuthModal } from './components/AuthModal';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { CartDrawer } from './components/CartDrawer';
@@ -295,7 +288,6 @@ function SassynaryContent() {
             />
             {/* Pass Review Modal Trigger */}
             <TestimonialsSection onWriteReview={() => setIsReviewModalOpen(true)} />
-            <AnnouncementSection />
           </>
         );
     }
