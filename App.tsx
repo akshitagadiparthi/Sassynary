@@ -19,10 +19,9 @@ import { AuthModal } from './components/AuthModal';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { CartDrawer } from './components/CartDrawer';
 import { CheckoutView } from './components/CheckoutView';
-import { ValentinesPopup } from './components/ValentinesPopup';
 import { ReviewModal } from './components/ReviewModal';
 import { Product } from './types';
-import { CheckCircle2, Instagram, ArrowRight, Heart, PenTool } from 'lucide-react';
+import { CheckCircle2, Instagram, ArrowRight, PenTool } from 'lucide-react';
 
 function SassynaryContent() {
   const [currentView, setCurrentView] = useState<'home' | 'category' | 'product' | 'about' | 'custom-orders' | 'gift-cards' | 'profile' | 'wishlist' | 'checkout' | 'order-success' | 'search'>('home');
@@ -39,9 +38,6 @@ function SassynaryContent() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authView, setAuthView] = useState<'login' | 'register'>('login');
   const [hasPromotedRegister, setHasPromotedRegister] = useState(false);
-  
-  // Valentine's Popup State
-  const [showValentines, setShowValentines] = useState(false);
 
   // Review Modal State
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
@@ -52,31 +48,13 @@ function SassynaryContent() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentView, selectedProduct]);
 
-  // Valentine's Popup Trigger
-  useEffect(() => {
-    // Show popup after 2 seconds on home screen
-    const timer = setTimeout(() => {
-      // Logic to not show if already seen in session could be added here
-      if (!sessionStorage.getItem('seen_vday_popup')) {
-          setShowValentines(true);
-      }
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleCloseValentines = () => {
-    setShowValentines(false);
-    sessionStorage.setItem('seen_vday_popup', 'true');
-  };
-
   // Prompt user to register immediately on entry if not logged in, then every 5 minutes
   useEffect(() => {
     if (loading || user) return;
 
     // Trigger immediate prompt only once per session
     if (!hasPromotedRegister) {
-        // Wait a bit if valentines popup is showing to avoid clutter
-        const delay = showValentines ? 10000 : 5000;
+        const delay = 5000;
         const timer = setTimeout(() => {
             if(!user) {
                 setAuthView('register');
@@ -89,14 +67,14 @@ function SassynaryContent() {
 
     // Recurring timer (resets if modal is interacted with/closed due to dependency)
     const interval = setInterval(() => {
-      if (!isAuthModalOpen && !showValentines) {
+      if (!isAuthModalOpen) {
         setAuthView('register');
         setIsAuthModalOpen(true);
       }
     }, 5 * 60 * 1000); // 5 minutes
 
     return () => clearInterval(interval);
-  }, [user, loading, isAuthModalOpen, hasPromotedRegister, showValentines]);
+  }, [user, loading, isAuthModalOpen, hasPromotedRegister]);
 
   const handleProductClick = (product: Product) => {
     setSelectedProduct(product);
@@ -165,12 +143,6 @@ function SassynaryContent() {
         setShowNewArrivalsOnly(true);
         setCategoryTitle('New Arrivals');
         setCategorySubtitle('Fresh from the printer.');
-      } else if (id === 'shop-valentines') {
-        setSearchQuery('valentine');
-        setCategoryTitle("Valentine's Collection");
-        setCategorySubtitle("Love notes & sweet things for your favorite person.");
-        setCurrentView('search');
-        return;
       } else if (id === 'shop-notebooks-pinned') {
         category = 'notebooks';
         subCategory = 'pinned';
@@ -343,19 +315,8 @@ function SassynaryContent() {
       {currentView !== 'checkout' && currentView !== 'order-success' && (
         <Footer onNavigate={handleNavigate} />
       )}
-      
-      {/* 1. Floating Valentine's Trigger (Left) */}
-      {!showValentines && (
-        <button
-          onClick={() => setShowValentines(true)}
-          className="fixed bottom-6 left-6 z-40 bg-[#D92525] text-white p-4 rounded-full shadow-[0_8px_30px_rgb(217,37,37,0.4)] hover:scale-110 transition-all duration-300 animate-float border-4 border-white"
-          title="Open Valentine's Special"
-        >
-          <Heart size={20} fill="currentColor" />
-        </button>
-      )}
 
-      {/* 2. Floating Add Review Trigger (Right) - "Just like V-Day" */}
+      {/* Floating Add Review Trigger (Right) */}
       <button
         onClick={() => setIsReviewModalOpen(true)}
         className="fixed bottom-6 right-6 z-40 bg-white text-gray-900 p-4 rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:bg-gray-50 hover:scale-110 transition-all duration-300 border border-gray-100 group"
@@ -371,15 +332,6 @@ function SassynaryContent() {
         initialView={authView}
       />
       
-      <ValentinesPopup 
-        isOpen={showValentines} 
-        onClose={handleCloseValentines}
-        onShop={() => {
-            handleCloseValentines();
-            handleNavigate('shop-valentines');
-        }}
-      />
-
       <ReviewModal 
         isOpen={isReviewModalOpen}
         onClose={() => setIsReviewModalOpen(false)}
