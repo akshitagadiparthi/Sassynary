@@ -4,6 +4,56 @@ import { Product } from '../types';
 export const PRODUCTS: Product[] = [
   // --- TRENDING MIX (Top 10-12) ---
   
+  // Hard-Bound Notebooks - Premium Collection
+  {
+    id: 128,
+    name: "Guest Check",
+    category: "hard-bound",
+    price: 250.00,
+    description: "A bold and playful notebook with motivational energy to brighten your desk and keep you inspired every day.",
+    image: "https://i.imgur.com/pmKOqCH.png",
+    images: ["https://i.imgur.com/pmKOqCH.png", "https://i.imgur.com/Vuf7qLW.png", "https://i.imgur.com/IgKCkuV.png"],
+    details: ["Thick bound cover","Hardcover notebook", "Ribbon bookmark", "Ideal for journaling and notes"],
+    isNew: true,
+    tags: ["hardbound book", "guest", "check", "cute book","motivational", "pink", "fun", "bold", "gift", "journal"]
+  },
+  {
+    id: 129,
+    name: "Coffee & Crossiants",
+    category: "hard-bound",
+    price: 250.00,
+    description: "A cozy notebook featuring coffee and croissant artwork, perfect for journaling, planning, or dreamy café lovers.",
+    image: "https://i.imgur.com/VOxG2ZD.png",
+    images: ["https://i.imgur.com/VOxG2ZD.png", "https://i.imgur.com/4OikpR3.png", "https://i.imgur.com/IzoM2ZR.png"],
+    details: ["Hardcover notebook", "Ribbon bookmark", "Minimal watercolor cover design"],
+    isNew: true,
+    tags: ["hardbound book", "guest", "coffee", "croissant", "cafe", "breakfast", "cozy", "journal"]
+  },
+  {
+    id: 130,
+    name: "Beat the Monday blues",
+    category: "hard-bound",
+    price: 250.00,
+    description: "A soft watercolor notebook with dreamy sunset-inspired tones, made for peaceful writing and creative moments.",
+    image: "https://i.imgur.com/8VYhCWh.png",
+    images: ["https://i.imgur.com/8VYhCWh.png", "https://i.imgur.com/7Vln6LH.png", "https://i.imgur.com/IgKCkuV.png"],
+    details: ["Hardcover notebook", "Ribbon bookmark", "Minimal watercolor cover design"],
+    isNew: true,
+    tags: ["watercolor", "pastel", "sunset", "soft", "minimal", "notebook"]
+  },
+  {
+    id: 131,
+    name: "Cotton Candy Skies",
+    category: "hard-bound",
+    price: 250.00,
+    description: "A clean blue striped notebook with a fresh, classic look that works beautifully for school, work, or personal notes.",
+    image: "https://i.imgur.com/dNXFeUq.png",
+    images: ["https://i.imgur.com/dNXFeUq.png", "https://i.imgur.com/sroS4JL.png", "https://i.imgur.com/IzoM2ZR.png"],
+    details: ["Hardcover notebook", "Ribbon bookmark", "Classic striped design"],
+    isNew: true,
+    tags: ["blue", "stripes", "minimal", "classic", "stationery", "journal"]
+  },
+  
   {
     id: 33,
     name: "Gotham Log",
@@ -587,55 +637,5 @@ export const PRODUCTS: Product[] = [
     images: ["https://i.imgur.com/sdFGFI7.png", "https://i.imgur.com/2FR5Y8P.png"],
     details: ["Premium 300gsm Cardstock", "A6 size"],
     tags: ["birthday", "animals", "funny", "cute", "pun"]
-  },
-
-  // --- HARD-BOUND NOTEBOOKS ---
-  {
-    id: 128,
-    name: "Guest Check",
-    category: "hard-bound",
-    price: 250.00,
-    description: "A bold and playful notebook with motivational energy to brighten your desk and keep you inspired every day.",
-    image: "https://i.imgur.com/pmKOqCH.png",
-    images: ["https://i.imgur.com/pmKOqCH.png", "https://i.imgur.com/Vuf7qLW.png", "https://i.imgur.com/IgKCkuV.png"],
-    details: ["Thick bound cover","Hardcover notebook", "Ribbon bookmark", "Ideal for journaling and notes"],
-    isNew: true,
-    tags: ["hardbound book", "guest", "check", "cute book","motivational", "pink", "fun", "bold", "gift", "journal"]
-  },
-  {
-    id: 129,
-    name: "Coffee & Crossiants",
-    category: "hard-bound",
-    price: 250.00,
-    description: "A cozy notebook featuring coffee and croissant artwork, perfect for journaling, planning, or dreamy café lovers.",
-    image: "https://i.imgur.com/VOxG2ZD.png",
-    images: ["https://i.imgur.com/VOxG2ZD.png", "https://i.imgur.com/4OikpR3.png", "https://i.imgur.com/IzoM2ZR.png"],
-    details: ["Hardcover notebook", "Ribbon bookmark", "Minimal watercolor cover design"],
-    isNew: true,
-    tags: ["hardbound book", "guest", "coffee", "croissant", "cafe", "breakfast", "cozy", "journal"]
-  },
-  {
-    id: 130,
-    name: "Beat the Monday blues",
-    category: "hard-bound",
-    price: 250.00,
-    description: "A soft watercolor notebook with dreamy sunset-inspired tones, made for peaceful writing and creative moments.",
-    image: "https://i.imgur.com/8VYhCWh.png",
-    images: ["https://i.imgur.com/8VYhCWh.png", "https://i.imgur.com/7Vln6LH.png", "https://i.imgur.com/IgKCkuV.png"],
-    details: ["Hardcover notebook", "Ribbon bookmark", "Minimal watercolor cover design"],
-    isNew: true,
-    tags: ["watercolor", "pastel", "sunset", "soft", "minimal", "notebook"]
-  },
-  {
-    id: 131,
-    name: "Cotton Candy Skies",
-    category: "hard-bound",
-    price: 250.00,
-    description: "A clean blue striped notebook with a fresh, classic look that works beautifully for school, work, or personal notes.",
-    image: "https://i.imgur.com/dNXFeUq.png",
-    images: ["https://i.imgur.com/dNXFeUq.png", "https://i.imgur.com/sroS4JL.png", "https://i.imgur.com/IzoM2ZR.png"],
-    details: ["Hardcover notebook", "Ribbon bookmark", "Classic striped design"],
-    isNew: true,
-    tags: ["blue", "stripes", "minimal", "classic", "stationery", "journal"]
   }
 ];
