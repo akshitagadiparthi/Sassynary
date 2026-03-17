@@ -4,7 +4,6 @@ import { Menu as MenuIcon, X, Search, User, ChevronRight, ChevronDown, Heart, Sh
 import { useWishlist } from '../contexts/WishlistContext';
 import { useCart } from '../contexts/CartContext';
 import { DynamicSassBar } from './DynamicSassBar';
-import { ValentinesBanner } from './ValentinesBanner';
 
 interface HeaderProps {
   onNavigate: (section: string) => void;
@@ -102,10 +101,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
   return (
     <>
       <header className="sticky top-0 z-40 bg-pink-50/90 backdrop-blur-md border-b border-pink-100 transition-all">
-        {/* New Valentine's Banner - High priority */}
-        <ValentinesBanner onShop={() => onNavigate('shop-valentines')} />
-        
-        {/* Existing Sass Bar */}
+        {/* Sass Bar */}
         <DynamicSassBar />
 
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
