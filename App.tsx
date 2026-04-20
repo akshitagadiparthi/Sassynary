@@ -22,6 +22,7 @@ import { CheckoutView } from './components/CheckoutView';
 import { ReviewModal } from './components/ReviewModal';
 import { Product } from './types';
 import { CheckCircle2, Instagram, ArrowRight, PenTool } from 'lucide-react';
+import { CustomCursor } from './components/CustomCursor';
 
 function SassynaryContent() {
   const [currentView, setCurrentView] = useState<'home' | 'category' | 'product' | 'about' | 'custom-orders' | 'gift-cards' | 'profile' | 'wishlist' | 'checkout' | 'order-success' | 'search'>('home');
@@ -306,11 +307,15 @@ function SassynaryContent() {
 
   return (
     <div className="min-h-screen bg-pink-lux flex flex-col">
+      {/* Skip-to-content for keyboard / screen reader users (P1 accessibility) */}
+      <a href="#main-content" className="skip-to-content">Skip to main content</a>
+
+      <CustomCursor />
       {currentView !== 'checkout' && currentView !== 'order-success' && (
         <Header onNavigate={handleNavigate} onAuthReq={() => openAuthModal('login')} onSearch={handleSearch} />
       )}
-      
-      <main className="flex-grow relative">
+
+      <main id="main-content" className="flex-grow relative">
         <CartDrawer onCheckout={() => setCurrentView('checkout')} />
         {renderContent()}
       </main>

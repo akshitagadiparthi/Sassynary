@@ -107,25 +107,78 @@
     </script>
 
     <style>
-      :root {
-        color-scheme: light;
-      }
-      body { 
-        margin: 0; 
-        padding: 0; 
-        background-color: #FFF0F5 !important; 
+      :root { color-scheme: light; }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #FFF0F5 !important;
         color: #2D2D2D !important;
-        font-family: 'Poppins', sans-serif; 
-        -webkit-font-smoothing: antialiased; 
+        font-family: 'Poppins', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        /* Smooth scrolling — GSAP ScrollTrigger plays nicely with this */
+        scroll-behavior: smooth;
       }
-      h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; font-weight: 400; }
-      #root { min-height: 100vh; display: flex; flex-direction: column; background-color: transparent; }
+
+      h1, h2, h3, h4, h5, h6, .font-serif {
+        font-family: 'Playfair Display', serif;
+        font-weight: 400;
+      }
+
+      #root {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-color: transparent;
+      }
+
+      /* Scrollbar */
       .scrollbar-hide::-webkit-scrollbar { display: none; }
       .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-      
-      div, section, main, header, footer {
-        border-color: rgba(0,0,0,0.05);
+
+      /* Subtle border tinting */
+      div, section, main, header, footer { border-color: rgba(0,0,0,0.05); }
+
+      /* Custom cursor — hides native on fine-pointer (mouse) devices */
+      @media (pointer: fine) {
+        body.custom-cursor-active,
+        body.custom-cursor-active * { cursor: none !important; }
       }
+
+      /* GPU-accelerated defaults for GSAP targets */
+      .will-change-transform { will-change: transform; }
+
+      /* Prevent layout paint on animated elements */
+      [data-gsap] { backface-visibility: hidden; }
+
+      /* Smooth image fade-in */
+      img { transition: opacity 0.4s ease; }
+
+      /* Global focus-visible ring — Tailwind removes outlines; restore them for keyboard users */
+      :focus-visible {
+        outline: 2px solid #FF1493;
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+
+      /* Skip-to-content link (screen readers + keyboard users) */
+      .skip-to-content {
+        position: absolute;
+        top: -100%;
+        left: 1rem;
+        z-index: 10000;
+        background: #FF1493;
+        color: #fff;
+        font-weight: 700;
+        padding: 0.5rem 1rem;
+        border-radius: 0 0 8px 8px;
+        transition: top 0.2s;
+        text-decoration: none;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.875rem;
+      }
+      .skip-to-content:focus { top: 0; }
     </style>
   <script type="importmap">
 {
@@ -138,7 +191,10 @@
     "vite": "https://esm.sh/vite@^7.3.1",
     "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
     "path": "https://esm.sh/path@^0.12.7",
-    "@google/genai": "https://esm.sh/@google/genai@^1.39.0"
+    "@google/genai": "https://esm.sh/@google/genai@^1.39.0",
+    "gsap": "https://esm.sh/gsap@3.12.5",
+    "gsap/ScrollTrigger": "https://esm.sh/gsap@3.12.5/ScrollTrigger",
+    "lottie-web": "https://esm.sh/lottie-web@5.12.2"
   }
 }
 </script>

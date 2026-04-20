@@ -4,6 +4,7 @@ import { Menu as MenuIcon, X, Search, User, ChevronRight, ChevronDown, Heart, Sh
 import { useWishlist } from '../contexts/WishlistContext';
 import { useCart } from '../contexts/CartContext';
 import { DynamicSassBar } from './DynamicSassBar';
+import { gsap } from '../utils/animations';
 
 interface HeaderProps {
   onNavigate: (section: string) => void;
@@ -19,14 +20,24 @@ interface NavLink {
 
 export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [expandedItems, setExpandedItems] = useState<string[]>(['shop-notebooks']); 
+  const [expandedItems, setExpandedItems] = useState<string[]>(['shop-notebooks']);
   const { wishlist } = useWishlist();
   const { cartCount, setIsCartOpen } = useCart();
-  
+  const logoRef = useRef<HTMLDivElement>(null);
+  const [logoError, setLogoError] = useState(false);
+
   // Search State
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Logo entrance animation on first mount
+  useEffect(() => {
+    if (!logoRef.current) return;
+    gsap.from(logoRef.current, {
+      opacity: 0, y: -8, duration: 0.6, ease: 'power3.out', delay: 0.3,
+    });
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -119,7 +130,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <button type="button" onClick={() => setIsSearchOpen(false)} className="ml-3 text-gray-500 hover:text-gray-900 flex-shrink-0">
+                    <button type="button" onClick={() => setIsSearchOpen(false)} aria-label="Close search" className="ml-3 text-gray-500 hover:text-gray-900 flex-shrink-0 w-11 h-11 flex items-center justify-center rounded-full hover:bg-pink-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hot-pink">
                         <X size={24} />
                     </button>
                 </form>
@@ -128,64 +139,83 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
                     <div className="flex-1 flex items-center">
                     <button
                         onClick={() => setIsOpen(true)}
-                        className="flex items-center gap-2 text-gray-900 hover:text-pink-700 transition-colors group"
+                        aria-label="Open navigation menu"
+                        aria-expanded={isOpen}
+                        aria-controls="nav-drawer"
+                        className="flex items-center gap-2 text-gray-900 hover:text-pink-700 transition-colors group min-h-[44px] px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hot-pink focus-visible:ring-offset-2 rounded-lg"
                     >
                         <MenuIcon size={24} strokeWidth={1.5} className="group-hover:scale-110 transition-transform" />
                         <span className="hidden md:inline text-sm font-bold uppercase tracking-widest mt-0.5">Menu</span>
                     </button>
                     </div>
 
-                    <div 
-                    className="flex-shrink-0 flex items-center justify-center gap-3 cursor-pointer group"
+                    <button
+                    ref={logoRef}
+                    className="flex-shrink-0 flex items-center justify-center gap-3 cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hot-pink focus-visible:ring-offset-2 rounded-lg px-1"
                     onClick={() => onNavigate('hero')}
+                    aria-label="Sassynary — go to homepage"
+                    style={{ willChange: 'transform' }}
                     >
-                    <img 
-                        src="https://i.imgur.com/x374Wwr.png" 
-                        alt="Sassynary" 
+                    {!logoError ? (
+                      <img
+                        src="https://i.imgur.com/x374Wwr.png"
+                        alt="Sassynary logo"
                         className="h-10 md:h-14 w-auto object-contain group-hover:scale-105 transition-transform mix-blend-multiply"
-                    />
-                    <span className="font-serif text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">Sassynary</span>
-                    </div>
+                        onError={() => setLogoError(true)}
+                      />
+                    ) : (
+                      /* SVG fallback if Imgur is unavailable */
+                      <svg viewBox="0 0 48 48" className="h-10 md:h-14 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect width="48" height="48" rx="12" fill="#FF1493" />
+                        <path d="M14 34 L24 14 L34 34" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                        <path d="M17 28 L31 28" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+                      </svg>
+                    )}
+                    <span className="font-serif text-2xl md:text-3xl font-bold text-gray-900 tracking-tight group-hover:text-hot-pink transition-colors">
+                      Sassynary
+                    </span>
+                    </button>
 
-                    <div className="flex-1 flex justify-end items-center space-x-4 md:space-x-6">
-                    <button 
+                    <div className="flex-1 flex justify-end items-center space-x-1 md:space-x-2">
+                    {/* All icon buttons: min 44×44px hit area + aria-label + focus-visible ring */}
+                    <button
                         onClick={() => setIsSearchOpen(true)}
-                        className="text-gray-900 hover:text-pink-600 hidden md:block"
-                        title="Search"
+                        aria-label="Search"
+                        className="text-gray-900 hover:text-pink-600 hidden md:flex items-center justify-center w-11 h-11 rounded-full hover:bg-pink-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hot-pink focus-visible:ring-offset-2"
                     >
                         <Search size={20} strokeWidth={1.5} />
                     </button>
-                    
-                    <button 
+
+                    <button
                         onClick={handleWishlistClick}
-                        className="text-gray-900 hover:text-pink-600 hidden md:block relative group"
-                        title="Wishlist"
+                        aria-label={`Wishlist${wishlist.length > 0 ? `, ${wishlist.length} saved` : ''}`}
+                        className="text-gray-900 hover:text-pink-600 hidden md:flex items-center justify-center w-11 h-11 rounded-full hover:bg-pink-50 transition-colors relative group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hot-pink focus-visible:ring-offset-2"
                     >
                         <Heart size={20} strokeWidth={1.5} className="group-hover:fill-pink-200 group-hover:text-pink-600 transition-colors" />
                         {wishlist.length > 0 && (
-                            <span className="absolute -top-1.5 -right-1.5 bg-pink-600 text-white text-[9px] font-bold h-4 w-4 rounded-full flex items-center justify-center shadow-sm">
+                            <span aria-hidden="true" className="absolute top-1 right-1 bg-pink-600 text-white text-[9px] font-bold h-4 w-4 rounded-full flex items-center justify-center shadow-sm">
                                 {wishlist.length}
                             </span>
                         )}
                     </button>
 
-                    <button 
+                    <button
                         onClick={() => setIsCartOpen(true)}
-                        className="text-gray-900 hover:text-pink-600 relative group"
-                        title="Shopping Bag"
+                        aria-label={`Shopping bag${cartCount > 0 ? `, ${cartCount} items` : ''}`}
+                        className="text-gray-900 hover:text-pink-600 flex items-center justify-center w-11 h-11 rounded-full hover:bg-pink-50 transition-colors relative group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hot-pink focus-visible:ring-offset-2"
                     >
                         <ShoppingBag size={20} strokeWidth={1.5} className="group-hover:fill-pink-100 transition-colors" />
                         {cartCount > 0 && (
-                            <span className="absolute -top-1.5 -right-1.5 bg-pink-600 text-white text-[9px] font-bold h-4 w-4 rounded-full flex items-center justify-center animate-fade-in shadow-sm">
+                            <span aria-hidden="true" className="absolute top-1 right-1 bg-pink-600 text-white text-[9px] font-bold h-4 w-4 rounded-full flex items-center justify-center animate-fade-in shadow-sm">
                                 {cartCount}
                             </span>
                         )}
                     </button>
 
-                    <button 
+                    <button
                         onClick={() => onNavigate('account')}
-                        className="text-gray-900 hover:text-pink-600 hidden md:block"
-                        title="Account"
+                        aria-label="Account"
+                        className="text-gray-900 hover:text-pink-600 hidden md:flex items-center justify-center w-11 h-11 rounded-full hover:bg-pink-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hot-pink focus-visible:ring-offset-2"
                     >
                         <User size={20} strokeWidth={1.5} />
                     </button>
@@ -198,16 +228,24 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onAuthReq, onSearch 
 
       {isOpen && (
         <div className="fixed inset-0 z-50 flex">
-          <div 
+          <div
             className="absolute inset-0 bg-black/20 backdrop-blur-sm transition-opacity"
             onClick={() => setIsOpen(false)}
+            aria-hidden="true"
           />
-          <div className="relative w-full max-w-sm bg-pink-50 shadow-2xl h-full flex flex-col animate-slide-in-left border-r border-pink-100">
+          <div
+            id="nav-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+            className="relative w-full max-w-sm bg-pink-50 shadow-2xl h-full flex flex-col animate-slide-in-left border-r border-pink-100"
+          >
             <div className="flex justify-between items-center p-6 border-b border-pink-100">
               <span className="text-sm font-bold uppercase tracking-widest text-gray-500">Navigation</span>
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
-                className="text-gray-500 hover:text-gray-900 transition-colors p-2 hover:bg-pink-100 rounded-full"
+                aria-label="Close navigation menu"
+                className="text-gray-500 hover:text-gray-900 transition-colors p-2 hover:bg-pink-100 rounded-full w-11 h-11 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hot-pink"
               >
                 <X size={24} />
               </button>
