@@ -23,6 +23,7 @@ import { ReviewModal } from './components/ReviewModal';
 import { Product } from './types';
 import { CheckCircle2, Instagram, ArrowRight, PenTool } from 'lucide-react';
 import { CustomCursor } from './components/CustomCursor';
+import { PageTransition } from './components/PageTransition';
 
 function SassynaryContent() {
   const [currentView, setCurrentView] = useState<'home' | 'category' | 'product' | 'about' | 'custom-orders' | 'gift-cards' | 'profile' | 'wishlist' | 'checkout' | 'order-success' | 'search'>('home');
@@ -317,7 +318,9 @@ function SassynaryContent() {
 
       <main id="main-content" className="flex-grow relative">
         <CartDrawer onCheckout={() => setCurrentView('checkout')} />
-        {renderContent()}
+        <PageTransition viewKey={`${currentView}-${selectedProduct?.id ?? ''}`}>
+          {renderContent()}
+        </PageTransition>
       </main>
 
       {currentView !== 'checkout' && currentView !== 'order-success' && (
